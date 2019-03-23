@@ -73,6 +73,9 @@ class CEKRequest {
     switch (intent) {
     case 'CountIntent':
       var count = slots.CountSlot.value
+      if (count < 1 || count > 100) {
+        count = 10
+      }
       for (var i=0; i < count; i++) {
         var ten = Math.floor((i+1) / 10)
         if ( ten > 0 ) {
