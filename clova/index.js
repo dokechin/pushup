@@ -73,13 +73,13 @@ class CEKRequest {
     case 'CountIntent':
       var count = slots.CountSlot.value
       for (var i=0; i < count; i++) {
-        var ten = Math.floor(i / 10)
+        var ten = Math.floor((i+1) / 10)
         console.log(ten)
         if ( ten > 0 ) {
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
-            value: `${DOMAIN}/` + ((i+1) % 10 == 0)? t[ten][0] : t[ten][1]
+            value: `${DOMAIN}/` + ((i+1) % 10 == 0)? t[ten-1][0] : t[ten-1][1]
           })
         }
         if ((i+1) % 10 != 0){
