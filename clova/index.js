@@ -73,7 +73,8 @@ class CEKRequest {
     case 'CountIntent':
       var count = slots.CountSlot.value
       for (var i=0; i < count; i++) {
-        var ten = (i+1) / 10;
+        var ten = i / 10;
+        console.log(ten)
         if ( ten > 0 ) {
           cekResponse.appendSpeechText({
             lang: 'ja',
