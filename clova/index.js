@@ -74,7 +74,6 @@ class CEKRequest {
       var count = slots.CountSlot.value
       for (var i=0; i < count; i++) {
         var ten = Math.floor((i+1) / 10)
-        console.log(ten)
         if ( ten > 0 ) {
           cekResponse.appendSpeechText({
             lang: 'ja',
@@ -83,6 +82,9 @@ class CEKRequest {
           })
         }
         if ((i+1) % 10 != 0){
+          console.log(ten)
+          console.log(i)
+
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
