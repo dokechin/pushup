@@ -86,15 +86,17 @@ class CEKRequest {
           })
         }
         if ((i+1) % 10 != 0){
-          console.log(ten)
-          console.log(i)
-
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
             value: `${DOMAIN}/` + b[i]
           })
         }
+        cekResponse.appendSpeechText({
+          lang: 'ja',
+          type: 'URL',
+          value: `${DOMAIN}/mute_01sec.mp3`
+        })
       }
       break;
     case 'Clova.GuideIntent': 
