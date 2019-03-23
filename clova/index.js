@@ -92,12 +92,12 @@ class CEKRequest {
             value: `${DOMAIN}/` + b[i]
           })
         }
-        cekResponse.appendSpeechText({
-          lang: 'ja',
-          type: 'URL',
-          value: `${DOMAIN}/mute_01sec.mp3`
-        })
       }
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
+      })
       break;
     case 'Clova.GuideIntent': 
     default: 
