@@ -8,10 +8,11 @@ const b = [
   'info-girl1_info-girl1-ni1.mp3',
   'info-girl1_info-girl1-san1.mp3',
   'info-girl1_info-girl1-yon1.mp3',
-  'info-girl1_info-girl1-yon1.mp3',
   'info-girl1_info-girl1-go1.mp3',
+  'info-girl1_info-girl1-roku1.mp3',
+  'info-girl1_info-girl1-nana1.mp3',
   'info-girl1_info-girl1-hachi1.mp3',
-  'info-girl1_info-girl1-kyuu1.mp3',
+  'info-girl1_info-girl1-kyuu1.mp3'
 ];
 
 const t = [
