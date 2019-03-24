@@ -69,13 +69,17 @@ class CEKRequest {
     console.dir(this.request)
     const intent = this.request.intent.name
     const slots = this.request.intent.slots
+    var count = 10
 
     switch (intent) {
     case 'CountIntent':
-    if (typeof slots.CountSlot.value === 'undefined' ) {
-      break;
-    }
-    var count = slots.CountSlot.value
+      if (slots && slots.CountSlot && slots.CountSlot.value ) {
+        count = slots.CountSlot.value
+      }
+      else {
+        cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+        break
+      }
       if (count < 1 || count > 100) {
         count = 10
       }
@@ -92,7 +96,7 @@ class CEKRequest {
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
-            value: `${DOMAIN}/` + b[i]
+            value: `${DOMAIN}/` + b[(i+1) % 10 ]
           })
         }
       }
