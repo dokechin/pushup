@@ -72,10 +72,10 @@ class CEKRequest {
 
     switch (intent) {
     case 'CountIntent':
-      var count = slots.CountSlot.value
-      if (typeof count === 'undefined' ) {
-        break;
-      }
+    if (typeof slots.CountSlot.value === 'undefined' ) {
+      break;
+    }
+    var count = slots.CountSlot.value
       if (count < 1 || count > 100) {
         count = 10
       }
