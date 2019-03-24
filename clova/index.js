@@ -82,7 +82,7 @@ class CEKRequest {
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
-            value: `${DOMAIN}/` + ((i+1) % 10 == 0)? t[ten-1][0] : t[ten-1][1]
+            value: `${DOMAIN}/` + (((i+1) % 10 == 0)? t[ten-1][0] : t[ten-1][1])
           })
         }
         if ((i+1) % 10 != 0){
