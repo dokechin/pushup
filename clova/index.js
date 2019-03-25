@@ -36,6 +36,7 @@ class CEKRequest {
 
   launchRequest(cekResponse) {
     console.log('launchRequest')
+    
     cekResponse.appendSpeechText("10まで数えて、のように指示してください")
     cekResponse.setMultiturn({mode : 'play'});
   }
@@ -59,7 +60,12 @@ class CEKRequest {
       if (count < 1 || count > 100) {
         count = 10
       }
-      for (var i=0; i < count; i++) {
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: '${DOMAIN}/info-girl1_info-girl1-start1.mp3'
+      })
+      for(var i=0;i<count;i++){
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
