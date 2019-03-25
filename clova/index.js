@@ -3,30 +3,6 @@ const uuid = require('uuid').v4
 const _ = require('lodash')
 const { DOMAIN, ExtensionId, DEBUG } = require('../config')
 var verifier = require('../util/verifier.js')
-const b = [
-  'info-girl1_info-girl1-ichi1.mp3',
-  'info-girl1_info-girl1-ni1.mp3',
-  'info-girl1_info-girl1-san1.mp3',
-  'info-girl1_info-girl1-yon1.mp3',
-  'info-girl1_info-girl1-go1.mp3',
-  'info-girl1_info-girl1-roku1.mp3',
-  'info-girl1_info-girl1-nana1.mp3',
-  'info-girl1_info-girl1-hachi1.mp3',
-  'info-girl1_info-girl1-kyuu1.mp3'
-];
-
-const t = [
-  ['info-girl1_info-girl1-zyu1.mp3', 'info-girl1_info-girl1-zyuu2.mp3'],
-  ['info-girl1_info-girl1-nizyuu1.mp3', 'info-girl1_info-girl1-nizyuu2.mp3'],
-  ['info-girl1_info-girl1-sanzyuu1.mp3', 'info-girl1_info-girl1-sanzyu1.mp3'],
-  ['info-girl1_info-girl1-yonzyuu1.mp3', 'info-girl1_info-girl1-yonzyu1.mp3'],
-  ['info-girl1_info-girl1-gozyuu1.mp3', 'info-girl1_info-girl1-gozyu1.mp3'],
-  ['info-girl1_info-girl1-rokuzyuu1.mp3', 'info-girl1_info-girl1-rokuzyuu1.mp3'],
-  ['info-girl1_info-girl1-nanazyuu1.mp3', 'info-girl1_info-girl1-nanazyu1.mp3'],
-  ['info-girl1_info-girl1-hachizyuu1.mp3', 'info-girl1_info-girl1-hachizyu1.mp3'],
-  ['info-girl1_info-girl1-kyuuzyuu1.mp3', 'info-girl1_info-girl1-kyuuzyu1.mp3'],
-  ['info-girl1_info-girl1-hyaku1.mp3', ''],
-];
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -60,7 +36,7 @@ class CEKRequest {
 
   launchRequest(cekResponse) {
     console.log('launchRequest')
-    cekResponse.appendSpeechText("カウントする回数を言ってね")
+    cekResponse.appendSpeechText("10まで数えて、のように指示してください")
     cekResponse.setMultiturn({mode : 'play'});
   }
 
@@ -84,21 +60,11 @@ class CEKRequest {
         count = 10
       }
       for (var i=0; i < count; i++) {
-        var ten = Math.floor((i+1) / 10)
-        if ( ten > 0 ) {
-          cekResponse.appendSpeechText({
-            lang: 'ja',
-            type: 'URL',
-            value: `${DOMAIN}/` + (((i+1) % 10 == 0)? t[ten-1][0] : t[ten-1][1])
-          })
-        }
-        if ((i+1) % 10 != 0){
-          cekResponse.appendSpeechText({
-            lang: 'ja',
-            type: 'URL',
-            value: `${DOMAIN}/` + b[((i+1) % 10) -1]
-          })
-        }
+        cekResponse.appendSpeechText({
+          lang: 'ja',
+          type: 'URL',
+          value: `${DOMAIN}/` + (i+1) + '.mp3'
+        })
       }
       cekResponse.appendSpeechText({
         lang: 'ja',
@@ -108,8 +74,8 @@ class CEKRequest {
       break;
     case 'Clova.GuideIntent': 
     default: 
-      cekResponse.setSimpleSpeechText("カウントする数を言ってね") 
-    }
+      cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+  }
     cekResponse.setMultiturn({mode : 'play'});
   }
 
