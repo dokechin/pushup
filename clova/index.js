@@ -36,7 +36,11 @@ class CEKRequest {
 
   launchRequest(cekResponse) {
     console.log('launchRequest')
-    
+    cekResponse.appendSpeechText({
+      lang: 'ja',
+      type: 'URL',
+      value: '${DOMAIN}/drum-japanese2.mp3'
+    })
     cekResponse.appendSpeechText("10まで数えて、のように指示してください")
     cekResponse.setMultiturn({mode : 'play'});
   }
@@ -65,12 +69,43 @@ class CEKRequest {
         type: 'URL',
         value: '${DOMAIN}/info-girl1_info-girl1-start1.mp3'
       })
+      var spart = false
       for(var i=0;i<count;i++){
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
           value: `${DOMAIN}/` + (i+1) + '.mp3'
         })
+        if(!spart && i > count*0.8){
+          spart = true
+          cekResponse.appendSpeechText({
+            lang: 'ja',
+            type: 'URL',
+            value: `${DOMAIN}/line-girl1_line-girl1-atochotto1.mp3`
+          })  
+        } else {
+          var value = Math.random();
+          if (value > 0.8) {
+            cekResponse.appendSpeechText({
+              lang: 'ja',
+              type: 'URL',
+              value: `${DOMAIN}/line-girl1_line-girl1-ganbare1.mp3`
+            })
+          } else if ( value > 0.6){
+            cekResponse.appendSpeechText({
+              lang: 'ja',
+              type: 'URL',
+              value: `${DOMAIN}/line-girl1_line-girl1-sonotyoushisonotyousi1.mp3`
+            })
+          } else {
+            cekResponse.appendSpeechText({
+              lang: 'ja',
+              type: 'URL',
+              value: `${DOMAIN}/mute_01sec.mp3`
+            })
+          }
+        }
+
       }
       cekResponse.appendSpeechText({
         lang: 'ja',
