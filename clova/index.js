@@ -132,8 +132,7 @@ class CEKResponse {
     this.response = {
       directives: [],
       shouldEndSession: true,
-      outputSpeech: {},
-      card: {},
+      outputSpeech: {}
     }
     this.version = '0.1.0'
     this.sessionAttributes = {}
