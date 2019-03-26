@@ -76,7 +76,10 @@ class CEKRequest {
           type: 'URL',
           value: `${DOMAIN}/` + (i+1) + '.mp3'
         })
-        if(!spart && i > count*0.8){
+        if (i == count) {
+          break;
+        }
+        if(i > count*0.8 && !spart){
           spart = true
           cekResponse.appendSpeechText({
             lang: 'ja',
@@ -105,8 +108,12 @@ class CEKRequest {
             })
           }
         }
-
       }
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${DOMAIN}/mute_01sec.mp3`
+      })
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
