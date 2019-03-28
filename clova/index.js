@@ -77,7 +77,6 @@ class CEKRequest {
           value: `${DOMAIN}/` + (i+1) + '.mp3'
         })
         if (i == count) {
-          console.log("break")
           break;
         }
         if((i+1) >= count*0.8 && !spart){
@@ -105,7 +104,7 @@ class CEKRequest {
             cekResponse.appendSpeechText({
               lang: 'ja',
               type: 'URL',
-              value: `${DOMAIN}/mute_01sec.mp3`
+              value: `${DOMAIN}/drum-japanese1.mp3`
             })
           }
         }
