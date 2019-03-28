@@ -39,7 +39,7 @@ class CEKRequest {
     cekResponse.appendSpeechText({
       lang: 'ja',
       type: 'URL',
-      value: '${DOMAIN}/drum-japanese2.mp3'
+      value: `${DOMAIN}/drum-japanese2.mp3`
     })
     cekResponse.appendSpeechText("10まで数えて、のように指示してください")
     cekResponse.setMultiturn({mode : 'play'});
@@ -67,7 +67,7 @@ class CEKRequest {
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
-        value: '${DOMAIN}/info-girl1_info-girl1-start1.mp3'
+        value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
       })
       var spart = false
       for(var i=0;i<count;i++){
@@ -79,7 +79,7 @@ class CEKRequest {
         if (i == count) {
           break;
         }
-        if(i > count*0.8 && !spart){
+        if((i+1) >= count*0.8 && !spart){
           spart = true
           cekResponse.appendSpeechText({
             lang: 'ja',
