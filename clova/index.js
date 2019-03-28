@@ -77,6 +77,7 @@ class CEKRequest {
           value: `${DOMAIN}/` + (i+1) + '.mp3'
         })
         if (i == count) {
+          console.log("break")
           break;
         }
         if((i+1) >= count*0.8 && !spart){
