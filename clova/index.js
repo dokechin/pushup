@@ -89,19 +89,19 @@ class CEKRequest {
           })  
         } else {
           var value = Math.random();
-          if (value > 0.933) {
+          if (value > 0.916) {
             cekResponse.appendSpeechText({
               lang: 'ja',
               type: 'URL',
               value: `${DOMAIN}/line-girl1_line-girl1-ganbare1.mp3`
             })
-          } else if ( value > 0.866){
+          } else if ( value > 0.833){
             cekResponse.appendSpeechText({
               lang: 'ja',
               type: 'URL',
               value: `${DOMAIN}/line-girl1_line-girl1-sonotyoushisonotyousi1.mp3`
             })
-          } else if ( value > 0.8){
+          } else if ( value > 0.75){
             cekResponse.appendSpeechText({
               lang: 'ja',
               type: 'URL',
