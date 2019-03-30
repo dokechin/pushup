@@ -77,6 +77,8 @@ class CEKRequest {
           type: 'URL',
           value: `${DOMAIN}/` + (i+1) + '.mp3'
         })
+        console.log("i" + i)
+        console.log("count" + count)
         if (i == count) {
           break;
         }
