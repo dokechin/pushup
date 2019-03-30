@@ -55,7 +55,7 @@ class CEKRequest {
     switch (intent) {
     case 'CountIntent':
       if (slots && slots.CountSlot && slots.CountSlot.value ) {
-        count = Number(slots.CountSlot.value)
+        count = slots.CountSlot.value
       }
       else {
         cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
@@ -77,9 +77,7 @@ class CEKRequest {
           type: 'URL',
           value: `${DOMAIN}/` + (i+1) + '.mp3'
         })
-        console.log("i" + i)
-        console.log("count" + count)
-        if (i == count) {
+        if ((i+1) == count) {
           break;
         }
         if((i+1) >= count*0.8 && !spart){
