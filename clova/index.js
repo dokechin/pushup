@@ -55,14 +55,15 @@ class CEKRequest {
     switch (intent) {
     case 'CountIntent':
       if (slots && slots.CountSlot && slots.CountSlot.value ) {
-        count = slots.CountSlot.value
+        count = Number(slots.CountSlot.value)
       }
       else {
         cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
         break
       }
       if (count < 1 || count > 100) {
-        count = 10
+        cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
+        break
       }
       cekResponse.appendSpeechText({
         lang: 'ja',
