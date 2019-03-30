@@ -89,17 +89,23 @@ class CEKRequest {
           })  
         } else {
           var value = Math.random();
-          if (value > 0.8) {
+          if (value > 0.933) {
             cekResponse.appendSpeechText({
               lang: 'ja',
               type: 'URL',
               value: `${DOMAIN}/line-girl1_line-girl1-ganbare1.mp3`
             })
-          } else if ( value > 0.6){
+          } else if ( value > 0.866){
             cekResponse.appendSpeechText({
               lang: 'ja',
               type: 'URL',
               value: `${DOMAIN}/line-girl1_line-girl1-sonotyoushisonotyousi1.mp3`
+            })
+          } else if ( value > 0.8){
+            cekResponse.appendSpeechText({
+              lang: 'ja',
+              type: 'URL',
+              value: `${DOMAIN}/line-girl1_line-girl1-furefure1.mp3`
             })
           } else {
             cekResponse.appendSpeechText({
