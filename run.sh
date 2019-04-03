@@ -1,2 +1,2 @@
 #/bin/bash
-npm start
+exec  ~/.ndenv/shims/node /home/tatsumi/pushup/app.js
