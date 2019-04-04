@@ -1,3 +1,4 @@
 #!/bin/bash
 export PATH=/usr/local/bin:$PATH
-exec  ~/.ndenv/shims/node /home/tatsumi/pushup/app.js
+cd `dirname $0`
+exec  ~/.ndenv/shims/node app.js
