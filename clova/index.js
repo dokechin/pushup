@@ -3,6 +3,8 @@ const uuid = require('uuid').v4
 const _ = require('lodash')
 const { DOMAIN, ExtensionId, DEBUG } = require('../config')
 var verifier = require('../util/verifier.js')
+var SoxCommand = require('sox-audio');
+const PUBLIC= "./public/clova";
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -65,6 +67,42 @@ class CEKRequest {
         cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
         break
       }
+
+      var command = SoxCommand();
+      command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
+      var spart = false
+      for(var i=0;i<count;i++){
+        command.input(`${PUBLIC}/` + (i+1) + '.mp3');
+        if ((i+1) == count) {
+          break;
+        }
+        if((i+1) >= count*0.8 && !spart){
+          spart = true
+          command.input(`${PUBLIC}/line-girl1_line-girl1-atochotto1.mp3`);
+        } else {
+          var value = Math.random();
+          if (value > 0.916) {
+            command.input(`${PUBLIC}/line-girl1_line-girl1-ganbare1.mp3`);
+          } else if ( value > 0.833){
+            command.input(`${PUBLIC}/line-girl1_line-girl1-sonotyoushisonotyousi1.mp3`);
+          } else if ( value > 0.75){
+            command.input(`${PUBLIC}/line-girl1_line-girl1-furefure1.mp3`);
+          } else {
+            command.input(`${PUBLIC}/drum-japanese1.mp3`);
+          }
+        }
+      }
+      command.input(`${PUBLIC}/mute_01sec.mp3`);
+      command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
+      command.output(`${PUBLIC}/hoge.mp3`)
+      command.run();
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${PUBLIC}/hoge.mp3`
+      })
+
+      /** 
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
@@ -126,6 +164,7 @@ class CEKRequest {
         type: 'URL',
         value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
       })
+*/
       break;
     case 'Clova.GuideIntent': 
     default: 
