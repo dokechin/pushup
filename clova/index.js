@@ -129,6 +129,7 @@ class CEKRequest {
           type: 'URL',
           value: `${PUBLIC}/hoge.mp3`
         })
+        cekResponse.setMultiturn({mode : 'play'});
       }
 
       exec();
@@ -200,8 +201,8 @@ class CEKRequest {
     case 'Clova.GuideIntent': 
     default: 
       cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
-  }
-    cekResponse.setMultiturn({mode : 'play'});
+      cekResponse.setMultiturn({mode : 'play'});
+    }
   }
 
   sessionEndedRequest(cekResponse) {
