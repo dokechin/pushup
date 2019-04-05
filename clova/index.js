@@ -69,6 +69,7 @@ class CEKRequest {
       }
 
       var command = SoxCommand();
+      console.log("SoxCommand")
       command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
       var spart = false
       for(var i=0;i<count;i++){
@@ -94,13 +95,31 @@ class CEKRequest {
       }
       command.input(`${PUBLIC}/mute_01sec.mp3`);
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
-      command.output(`${PUBLIC}/hoge.mp3`)
+      command.output(`${PUBLIC}/hoge.mp3`).concat();
       command.run();
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${PUBLIC}/hoge.mp3`
-      })
+      var addStandardListeners = function(command) {
+        command.on('start', function(commandLine) {
+          console.log('Spawned sox with command ' + commandLine);
+        });
+
+        command.on('progress', function(progress) {
+          console.log('Processing progress: ', progress);
+        });
+
+        command.on('error', function(err, stdout, stderr) {
+          console.log('Cannot process audio: ' + err.message);
+          console.log('Sox Command Stdout: ', stdout);
+          console.log('Sox Command Stderr: ', stderr)
+        });
+
+        command.on('end', function() {
+          cekResponse.appendSpeechText({
+            lang: 'ja',
+            type: 'URL',
+            value: `${PUBLIC}/hoge.mp3`
+          })
+        });
+      };
 
       /** 
       cekResponse.appendSpeechText({
