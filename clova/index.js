@@ -96,7 +96,7 @@ class CEKRequest {
       command.input(`${PUBLIC}/mute_01sec.mp3`);
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       command.output(`${PUBLIC}/hoge.mp3`).concat();
-      command.run();
+
       var addStandardListeners = function(command) {
         command.on('start', function(commandLine) {
           console.log('Spawned sox with command ' + commandLine);
@@ -120,6 +120,9 @@ class CEKRequest {
           })
         });
       };
+
+      addStandardListeners(command);
+      command.run();
 
       /** 
       cekResponse.appendSpeechText({
