@@ -69,7 +69,6 @@ class CEKRequest {
       }
 
       var command = SoxCommand();
-      console.log("SoxCommand")
       command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
       var spart = false
       for(var i=0;i<count;i++){
@@ -136,6 +135,7 @@ class CEKRequest {
     default: 
       cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
     }
+    console.log("end!!!")
     cekResponse.setMultiturn({mode : 'play'});
   }
 
