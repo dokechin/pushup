@@ -132,10 +132,6 @@ class CEKRequest {
 
       exec();
 
-      };
-
-
-
       /** 
       cekResponse.appendSpeechText({
         lang: 'ja',
