@@ -124,6 +124,7 @@ class CEKRequest {
       async function exec() {
         command.run();
         await end();
+        console.log("after await")
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
