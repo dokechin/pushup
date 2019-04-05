@@ -126,18 +126,19 @@ class CEKRequest {
         var promise = end();
         await promise;
         console.log("after await")
-        cekResponse.appendSpeechText({
-          lang: 'ja',
-          type: 'URL',
-          value: `${PUBLIC}/hoge.mp3`
-        })
-        cekResponse.setMultiturn({mode : 'play'});
         console.log("after response")
         return promise;
       }
 
       await exec();
       console.log("end exec()")
+
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${PUBLIC}/hoge.mp3`
+      })
+      cekResponse.setMultiturn({mode : 'play'});
 
       /** 
       cekResponse.appendSpeechText({
