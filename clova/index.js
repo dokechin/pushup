@@ -115,6 +115,7 @@ class CEKRequest {
           });
     
           command.on('end', function (){
+            console.log("end!!")
             resolve();
           })
         });
