@@ -131,11 +131,13 @@ class CEKRequest {
           value: `${PUBLIC}/hoge.mp3`
         })
         cekResponse.setMultiturn({mode : 'play'});
+        console.log("after response")
       }
 
       (async () => {
         await exec();
       })();
+      console.log("end exec()")
 
       /** 
       cekResponse.appendSpeechText({
