@@ -113,6 +113,7 @@ class CEKRequest {
         });
 
         command.on('end', function() {
+          console.log('end');
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
