@@ -122,6 +122,8 @@ class CEKRequest {
       }
 
       await exec();
+
+      cekResponse.setSimpleSpeechText("123") 
  
       cekResponse.appendSpeechText({
         lang: 'ja',
