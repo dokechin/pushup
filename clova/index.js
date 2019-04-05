@@ -124,9 +124,6 @@ class CEKRequest {
       async function exec() {
         command.run();
         var promise = end();
-        await promise;
-        console.log("after await")
-        console.log("after response")
         return promise;
       }
 
