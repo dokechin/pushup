@@ -136,7 +136,7 @@ class CEKRequest {
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
-        value: `${PUBLIC}/hoge.mp3`
+        value: `${DOMAIN}/hoge.mp3`
       })
       cekResponse.setMultiturn({mode : 'play'});
 
