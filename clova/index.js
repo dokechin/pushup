@@ -100,22 +100,16 @@ class CEKRequest {
       async function end() {
         return new Promise( function(resolve, reject){
           command.on('start', function(commandLine) {
-            console.log('Spawned sox with command ' + commandLine);
           });
     
           command.on('progress', function(progress) {
-            console.log('Processing progress: ', progress);
           });
     
           command.on('error', function(err, stdout, stderr) {
-            console.log('Cannot process audio: ' + err.message);
-            console.log('Sox Command Stdout: ', stdout);
-            console.log('Sox Command Stderr: ', stderr)
             reject();
           });
     
           command.on('end', function (){
-            console.log("end!!")
             resolve();
           })
         });
@@ -128,77 +122,13 @@ class CEKRequest {
       }
 
       await exec();
-      console.log("end exec()")
-
+ 
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
         value: `${DOMAIN}/hoge.mp3`
       })
 
-      /** 
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
-      })
-      var spart = false
-      for(var i=0;i<count;i++){
-        cekResponse.appendSpeechText({
-          lang: 'ja',
-          type: 'URL',
-          value: `${DOMAIN}/` + (i+1) + '.mp3'
-        })
-        if ((i+1) == count) {
-          break;
-        }
-        if((i+1) >= count*0.8 && !spart){
-          spart = true
-          cekResponse.appendSpeechText({
-            lang: 'ja',
-            type: 'URL',
-            value: `${DOMAIN}/line-girl1_line-girl1-atochotto1.mp3`
-          })  
-        } else {
-          var value = Math.random();
-          if (value > 0.916) {
-            cekResponse.appendSpeechText({
-              lang: 'ja',
-              type: 'URL',
-              value: `${DOMAIN}/line-girl1_line-girl1-ganbare1.mp3`
-            })
-          } else if ( value > 0.833){
-            cekResponse.appendSpeechText({
-              lang: 'ja',
-              type: 'URL',
-              value: `${DOMAIN}/line-girl1_line-girl1-sonotyoushisonotyousi1.mp3`
-            })
-          } else if ( value > 0.75){
-            cekResponse.appendSpeechText({
-              lang: 'ja',
-              type: 'URL',
-              value: `${DOMAIN}/line-girl1_line-girl1-furefure1.mp3`
-            })
-          } else {
-            cekResponse.appendSpeechText({
-              lang: 'ja',
-              type: 'URL',
-              value: `${DOMAIN}/drum-japanese1.mp3`
-            })
-          }
-        }
-      }
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/mute_01sec.mp3`
-      })
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
-      })
-*/
       break;
     case 'Clova.GuideIntent': 
     default: 
