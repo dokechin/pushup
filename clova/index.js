@@ -47,7 +47,7 @@ class CEKRequest {
     cekResponse.setMultiturn({mode : 'play'});
   }
 
-  intentRequest(cekResponse) {
+  async intentRequest(cekResponse) {
     console.log('intentRequest')
     console.dir(this.request)
     const intent = this.request.intent.name
@@ -123,7 +123,8 @@ class CEKRequest {
         
       async function exec() {
         command.run();
-        await end();
+        var promise = end();
+        await promise;
         console.log("after await")
         cekResponse.appendSpeechText({
           lang: 'ja',
@@ -132,11 +133,10 @@ class CEKRequest {
         })
         cekResponse.setMultiturn({mode : 'play'});
         console.log("after response")
+        return promise;
       }
 
-      (async () => {
-        await exec();
-      })();
+      await exec();
       console.log("end exec()")
 
       /** 
