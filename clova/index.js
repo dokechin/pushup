@@ -133,7 +133,9 @@ class CEKRequest {
         cekResponse.setMultiturn({mode : 'play'});
       }
 
-      exec();
+      (async () => {
+        await exec();
+      })();
 
       /** 
       cekResponse.appendSpeechText({
