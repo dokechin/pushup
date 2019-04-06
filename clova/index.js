@@ -47,6 +47,28 @@ class CEKRequest {
     cekResponse.setMultiturn({mode : 'play'});
   }
 
+  async makePromise(command) {
+    return new Promise( function(resolve, reject){
+      command.on('start', function(commandLine) {
+      });
+
+      command.on('progress', function(progress) {
+      });
+
+      command.on('error', function(err, stdout, stderr) {
+        reject();
+      });
+
+      command.on('end', function (){
+        resolve();
+      })
+    });
+  }
+  async exec(command) {
+    command.run();
+    var promise = makePromise();
+    return promise;
+  }
   async intentRequest(cekResponse) {
     console.log('intentRequest')
     console.dir(this.request)
@@ -67,9 +89,7 @@ class CEKRequest {
         cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
         break
       }
-    
-       
-      /** 
+      
       var command = SoxCommand();
       command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
       var spart = false
@@ -94,51 +114,17 @@ class CEKRequest {
           }
         }
       }
-
       command.input(`${PUBLIC}/mute_01sec.mp3`);
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       command.output(`${PUBLIC}/hoge.mp3`).concat();
-      */
 
+      await exec(command);
+      
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
         value: `${DOMAIN}/hoge.mp3`
-      })
-
-      /*
-      async function makePromise() {
-        return new Promise( function(resolve, reject){
-          command.on('start', function(commandLine) {
-          });
-    
-          command.on('progress', function(progress) {
-          });
-    
-          command.on('error', function(err, stdout, stderr) {
-            reject();
-          });
-    
-          command.on('end', function (){
-            resolve();
-          })
-        });
-      }
-        
-      async function exec() {
-        command.run();
-        var promise = makePromise();
-        return promise;
-      }
-
-      await exec();
- 
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/hoge.mp3`
-      })
-    */
+      })    
       break;
     
     case 'Clova.GuideIntent': 
