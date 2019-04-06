@@ -69,11 +69,6 @@ class CEKRequest {
       }
     
        
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/hoge.mp3`
-      })
       /** 
       var command = SoxCommand();
       command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
@@ -99,10 +94,19 @@ class CEKRequest {
           }
         }
       }
+
       command.input(`${PUBLIC}/mute_01sec.mp3`);
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       command.output(`${PUBLIC}/hoge.mp3`).concat();
-        
+      */
+
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${DOMAIN}/hoge.mp3`
+      })
+
+      /*
       async function makePromise() {
         return new Promise( function(resolve, reject){
           command.on('start', function(commandLine) {
