@@ -69,9 +69,37 @@ class CEKRequest {
       })
     });
   }
-  async wait(promise){
-    await promise;
+  async makeAudio(){
+    console.log("concatinating")
+
+    var command1 = SoxCommand();
+    var spart = false
+    for(var i=0;i<count;i++){
+      command1.input(`${PUBLIC}/` + (i+1) + '.mp3');
+      if ((i+1) == count) {
+        break;
+      }
+    }
+    var id = shortid.generate();
+    command1.output(`${PUBLIC}/generated_${id}.mp3`).concat();
+  
+    var promise1 = this.makePromise(command1);
+    command1.run();
+    wait(promise1);
+  
+    console.log("mixing")
+    var command2 = SoxCommand();
+    command2.input(`${PUBLIC}/generated_${id}.mp3`);
+    command2.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
+    var id2 = shortid.generate();
+    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix');
+  
+    var promise2 = this.makePromise(command2);
+    command2.run();  
+    await promise2;
+    resolve(id2);
   }
+  
   intentRequest(cekResponse) {
     console.log('intentRequest')
     console.dir(this.request)
@@ -86,10 +114,12 @@ class CEKRequest {
       }
       else {
         cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+        cekResponse.setMultiturn({mode : 'play'});
         break
       }
       if (count < 1 || count > 100) {
         cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
+        cekResponse.setMultiturn({mode : 'play'});
         break
       }
 
@@ -98,50 +128,28 @@ class CEKRequest {
         type: 'URL',
         value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
       })      
-      var command = SoxCommand();
-      var spart = false
-      for(var i=0;i<count;i++){
-        command.input(`${PUBLIC}/` + (i+1) + '.mp3');
-        if ((i+1) == count) {
-          break;
-        }
-      }
-      var id = shortid.generate();
-      command.output(`${PUBLIC}/generated_${id}.mp3`).concat();
 
-      var promise = this.makePromise(command);
-      command.run();
-      this.wait(promise);
-
-      console.log("mixing")
-      command = SoxCommand();
-      command.input(`${PUBLIC}/generated_${id}.mp3`);
-      command.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
-      var id2 = shortid.generate();
-      command.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix');
-
-      promise = this.makePromise(command);
-      command.run();
-      this.wait(promise);
-
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/generated_${id2}.mp3`
-      })    
-
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
-      })      
+      makeAudio().then(function (id){
+        cekResponse.appendSpeechText({
+          lang: 'ja',
+          type: 'URL',
+          value: `${DOMAIN}/generated_${id}.mp3`
+        })    
+  
+        cekResponse.appendSpeechText({
+          lang: 'ja',
+          type: 'URL',
+          value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
+        })      
+        cekResponse.setMultiturn({mode : 'play'});
+      })
       break;
     
     case 'Clova.GuideIntent': 
     default: 
       cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+      cekResponse.setMultiturn({mode : 'play'});
     }
-    cekResponse.setMultiturn({mode : 'play'});
   }
 
   sessionEndedRequest(cekResponse) {
