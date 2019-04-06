@@ -57,6 +57,9 @@ class CEKRequest {
       });
 
       command.on('error', function(err, stdout, stderr) {
+        console.log('Cannot process audio: ' + err.message);
+        console.log('Sox Command Stdout: ', stdout);
+        console.log('Sox Command Stderr: ', stderr)
         reject();
       });
 
@@ -97,7 +100,6 @@ class CEKRequest {
       var command = SoxCommand();
       var spart = false
       for(var i=0;i<count;i++){
-        console.log(i);
         command.input(`${PUBLIC}/` + (i+1) + '.mp3');
         if ((i+1) == count) {
           break;
