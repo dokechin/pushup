@@ -85,7 +85,7 @@ class CEKRequest {
   
     var promise1 = this.makePromise(command1);
     command1.run();
-    wait(promise1);
+    await promise1;
   
     console.log("mixing")
     var command2 = SoxCommand();
