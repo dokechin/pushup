@@ -102,22 +102,34 @@ class CEKRequest {
         if ((i+1) == count) {
           break;
         }
-//        command.input(`${PUBLIC}/drum-japanese1.mp3`);
       }
-      command.input(`${PUBLIC}/mute_01sec.mp3`);
-      command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       var id = shortid.generate();
       command.output(`${PUBLIC}/generated_${id}.mp3`).concat();
 
       var promise = this.makePromise(command);
       command.run();
       this.wait(promise);
-      
+
+      command.input(`${PUBLIC}/${PUBLIC}/generated_${id}.mp3`);
+      command.input(`${PUBLIC}/${PUBLIC}/people_stadium-buzz1.mp3`);
+      var id2 = shortid.generate();
+      command.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix');
+
+      promise = this.makePromise(command);
+      command.run();
+      this.wait(promise);
+
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
-        value: `${DOMAIN}/generated_${id}.mp3`
+        value: `${DOMAIN}/generated_${id2}.mp3`
       })    
+
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
+      })      
       break;
     
     case 'Clova.GuideIntent': 
