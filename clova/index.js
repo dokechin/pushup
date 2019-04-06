@@ -5,6 +5,7 @@ const { DOMAIN, ExtensionId, DEBUG } = require('../config')
 var verifier = require('../util/verifier.js')
 var SoxCommand = require('sox-audio');
 const PUBLIC= "./public/clova";
+const shortid = require('shortid');
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -97,25 +98,12 @@ class CEKRequest {
         if ((i+1) == count) {
           break;
         }
-        if((i+1) >= count*0.8 && !spart){
-          spart = true
-          command.input(`${PUBLIC}/line-girl1_line-girl1-atochotto1.mp3`);
-        } else {
-          var value = Math.random();
-          if (value > 0.916) {
-            command.input(`${PUBLIC}/line-girl1_line-girl1-ganbare1.mp3`);
-          } else if ( value > 0.833){
-            command.input(`${PUBLIC}/line-girl1_line-girl1-sonotyoushisonotyousi1.mp3`);
-          } else if ( value > 0.75){
-            command.input(`${PUBLIC}/line-girl1_line-girl1-furefure1.mp3`);
-          } else {
-            command.input(`${PUBLIC}/drum-japanese1.mp3`);
-          }
-        }
+        command.input(`${PUBLIC}/drum-japanese1.mp3`);
       }
       command.input(`${PUBLIC}/mute_01sec.mp3`);
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
-      command.output(`${PUBLIC}/hoge.mp3`).concat();
+      var id = shortid.generate();
+      command.output(`${PUBLIC}/generated_${id}.mp3`).concat();
 
       var promise = this.makePromise(command);
       command.run();
@@ -124,7 +112,7 @@ class CEKRequest {
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
-        value: `${DOMAIN}/hoge.mp3`
+        value: `${DOMAIN}/generated_${id}.mp3`
       })    
       break;
     
@@ -132,7 +120,6 @@ class CEKRequest {
     default: 
       cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
     }
-    console.log("end!!!")
     cekResponse.setMultiturn({mode : 'play'});
   }
 
