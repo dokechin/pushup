@@ -112,6 +112,7 @@ class CEKRequest {
       command.run();
       this.wait(promise);
 
+      command = SoxCommand();
       command.input(`${PUBLIC}/generated_${id}.mp3`);
       command.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
       var id2 = shortid.generate();
