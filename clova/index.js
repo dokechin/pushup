@@ -47,7 +47,7 @@ class CEKRequest {
     cekResponse.setMultiturn({mode : 'play'});
   }
 
-  async makePromise(command) {
+  makePromise(command) {
     return new Promise( function(resolve, reject){
       command.on('start', function(commandLine) {
       });
@@ -65,9 +65,7 @@ class CEKRequest {
     });
   }
   async exec(command) {
-    var promise = this.makePromise(command);
     command.run();
-    return promise;
   }
   async intentRequest(cekResponse) {
     console.log('intentRequest')
@@ -118,7 +116,8 @@ class CEKRequest {
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       command.output(`${PUBLIC}/hoge.mp3`).concat();
 
-      await this.exec(command);
+      var promise = makePromise(command);
+      await promise;
       
       cekResponse.appendSpeechText({
         lang: 'ja',
