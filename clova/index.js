@@ -98,7 +98,7 @@ class CEKRequest {
     var promise2 = this.makePromise(command2);
     command2.run();  
     await promise2;
-    resolve(id2);
+    return id2;
   }
   
   intentRequest(cekResponse) {
