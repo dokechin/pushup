@@ -102,12 +102,13 @@ class CEKRequest {
   }
   
   intentRequest(cekResponse) {
+    var that = this;
     return new Promise( function(resolve, reject){
 
       console.log('intentRequest')
-      console.dir(this.request)
-      const intent = this.request.intent.name
-      const slots = this.request.intent.slots
+      console.dir(that.request)
+      const intent = that.request.intent.name
+      const slots = that.request.intent.slots
       var count = 10
   
       switch (intent) {
