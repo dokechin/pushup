@@ -92,6 +92,7 @@ class CEKRequest {
       command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
       var spart = false
       for(var i=0;i<count;i++){
+        console.log(i);
         command.input(`${PUBLIC}/` + (i+1) + '.mp3');
         if ((i+1) == count) {
           break;
