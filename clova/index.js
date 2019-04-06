@@ -88,9 +88,13 @@ class CEKRequest {
         cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
         break
       }
-      
+
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
+      })      
       var command = SoxCommand();
-      command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
       var spart = false
       for(var i=0;i<count;i++){
         console.log(i);
@@ -98,7 +102,7 @@ class CEKRequest {
         if ((i+1) == count) {
           break;
         }
-        command.input(`${PUBLIC}/drum-japanese1.mp3`);
+//        command.input(`${PUBLIC}/drum-japanese1.mp3`);
       }
       command.input(`${PUBLIC}/mute_01sec.mp3`);
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
