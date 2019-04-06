@@ -64,9 +64,6 @@ class CEKRequest {
       })
     });
   }
-  async exec(command) {
-    command.run();
-  }
   async intentRequest(cekResponse) {
     console.log('intentRequest')
     console.dir(this.request)
@@ -116,7 +113,8 @@ class CEKRequest {
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       command.output(`${PUBLIC}/hoge.mp3`).concat();
 
-      var promise = makePromise(command);
+      var promise = this.makePromise(command);
+      command.run();
       await promise;
       
       cekResponse.appendSpeechText({
