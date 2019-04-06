@@ -31,9 +31,7 @@ class CEKRequest {
       case 'LaunchRequest':
         return this.launchRequest(cekResponse)
       case 'IntentRequest':
-        await this.intentRequest(cekResponse);
-        console.log("end!!!!!!!")
-        return cekResponse;
+        return await this.intentRequest(cekResponse);
       case 'SessionEndedRequest':
         return this.sessionEndedRequest(cekResponse)
     }
@@ -120,12 +118,12 @@ class CEKRequest {
         else {
           cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
           cekResponse.setMultiturn({mode : 'play'});
-          resolve();
+          resolve(cekResponse);
         }
         if (count < 1 || count > 100) {
           cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
           cekResponse.setMultiturn({mode : 'play'});
-          resolve();
+          resolve(cekResponse);
         }
   
         cekResponse.appendSpeechText({
@@ -147,7 +145,7 @@ class CEKRequest {
             value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
           })      
           cekResponse.setMultiturn({mode : 'play'});
-          resolve();
+          resolve(cekResponse);
         })
         break;
       
