@@ -116,7 +116,7 @@ class CEKRequest {
     var command3 = SoxCommand();
     command3.input(`${PUBLIC}/generated_${id2}.mp3`);
     var id3 = shortid.generate();
-    command3.output(`${PUBLIC}/generated_${id3}.mp3`).trim(duration);
+    command3.output(`${PUBLIC}/generated_${id3}.mp3`).trim(0, duration);
   
     var promise3 = this.makePromise(command3);
     command3.run();  
