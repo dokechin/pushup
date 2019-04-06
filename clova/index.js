@@ -112,8 +112,8 @@ class CEKRequest {
       command.run();
       this.wait(promise);
 
-      command.input(`${PUBLIC}/${PUBLIC}/generated_${id}.mp3`);
-      command.input(`${PUBLIC}/${PUBLIC}/people_stadium-buzz1.mp3`);
+      command.input(`${PUBLIC}/generated_${id}.mp3`);
+      command.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
       var id2 = shortid.generate();
       command.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix');
 
