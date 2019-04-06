@@ -106,12 +106,23 @@ class CEKRequest {
     command2.input(`${PUBLIC}/generated_${id}.mp3`);
     command2.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
     var id2 = shortid.generate();
-    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('merge').trim(duration);
+    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('merge');
   
     var promise2 = this.makePromise(command2);
     command2.run();  
     await promise2;
-    return id2;
+
+    console.log("triming")
+    var command3 = SoxCommand();
+    command3.input(`${PUBLIC}/generated_${id2}.mp3`);
+    var id3 = shortid.generate();
+    command3.output(`${PUBLIC}/generated_${id3}.mp3`).trim(duration);
+  
+    var promise3 = this.makePromise(command3);
+    command3.run();  
+    await promise3;
+
+    return id3;
   }
   
   intentRequest(cekResponse) {
