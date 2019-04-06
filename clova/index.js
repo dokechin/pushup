@@ -79,6 +79,7 @@ class CEKRequest {
       if ((i+1) == count) {
         break;
       }
+      console.log(i)
     }
     var id = shortid.generate();
     command1.output(`${PUBLIC}/generated_${id}.mp3`).concat();
