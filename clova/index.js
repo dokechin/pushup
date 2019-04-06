@@ -32,6 +32,7 @@ class CEKRequest {
         return this.launchRequest(cekResponse)
       case 'IntentRequest':
         await this.intentRequest(cekResponse);
+        console.log("intentRequest end")
         return cekResponse;
       case 'SessionEndedRequest':
         return this.sessionEndedRequest(cekResponse)
