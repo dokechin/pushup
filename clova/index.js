@@ -6,6 +6,7 @@ var verifier = require('../util/verifier.js')
 var SoxCommand = require('sox-audio');
 const PUBLIC= "./public/clova";
 const shortid = require('shortid');
+const mp3Duration = require('mp3-duration');
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -69,6 +70,17 @@ class CEKRequest {
       })
     });
   }
+  mp3duration(filename) {
+    return new Promise( function(resolve, reject){
+      mp3Duration(filename, function (err, duration) {
+        if (err) {
+          console.log(err.message);
+          reject();
+        }
+        resolve(duration);
+      })
+    });
+  }
   async makeAudio(count){
     console.log("concatinating")
 
@@ -86,13 +98,15 @@ class CEKRequest {
     var promise1 = this.makePromise(command1);
     command1.run();
     await promise1;
+
+    var duration = await mp3duration(`${PUBLIC}/generated_${id}.mp3`);
   
     console.log("mixing")
     var command2 = SoxCommand();
     command2.input(`${PUBLIC}/generated_${id}.mp3`);
     command2.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
     var id2 = shortid.generate();
-    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix');
+    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix').trim(duration);
   
     var promise2 = this.makePromise(command2);
     command2.run();  

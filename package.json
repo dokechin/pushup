@@ -19,6 +19,7 @@
     "morgan": "^1.9.0",
     "uuid": "^3.1.0",
     "sox-audio": "^0.3.0",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "mp3-duration": "^1.1.0"
   }
 }
