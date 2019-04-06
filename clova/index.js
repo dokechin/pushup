@@ -26,12 +26,13 @@ class CEKRequest {
     console.log(`CEK Request: ${JSON.stringify(this.context)}, ${JSON.stringify(this.session)}`)
   }
 
-  do(cekResponse) {
+  async do(cekResponse) {
     switch (this.request.type) {
       case 'LaunchRequest':
         return this.launchRequest(cekResponse)
       case 'IntentRequest':
-        return this.intentRequest(cekResponse)
+        await this.intentRequest(cekResponse);
+        return cekResponse;
       case 'SessionEndedRequest':
         return this.sessionEndedRequest(cekResponse)
     }
@@ -101,7 +102,7 @@ class CEKRequest {
     return id2;
   }
   
-  intentRequest(cekResponse) {
+  async intentRequest(cekResponse) {
     console.log('intentRequest')
     console.dir(this.request)
     const intent = this.request.intent.name
