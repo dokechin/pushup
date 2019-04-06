@@ -99,7 +99,7 @@ class CEKRequest {
     command1.run();
     await promise1;
 
-    var duration = await mp3duration(`${PUBLIC}/generated_${id}.mp3`);
+    var duration = await this.mp3duration(`${PUBLIC}/generated_${id}.mp3`);
   
     console.log("mixing")
     var command2 = SoxCommand();
