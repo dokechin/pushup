@@ -66,7 +66,7 @@ class CEKRequest {
   }
   async exec(command) {
     command.run();
-    var promise = this.makePromise();
+    var promise = this.makePromise(command);
     return promise;
   }
   async intentRequest(cekResponse) {
