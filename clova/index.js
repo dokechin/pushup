@@ -118,7 +118,7 @@ class CEKRequest {
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       command.output(`${PUBLIC}/hoge.mp3`).concat();
 
-      await exec(command);
+      await this.exec(command);
       
       cekResponse.appendSpeechText({
         lang: 'ja',
