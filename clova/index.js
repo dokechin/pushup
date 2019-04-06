@@ -106,7 +106,7 @@ class CEKRequest {
     command2.input(`${PUBLIC}/generated_${id}.mp3`);
     command2.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
     var id2 = shortid.generate();
-    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix').trim(duration);
+    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('merge').trim(duration);
   
     var promise2 = this.makePromise(command2);
     command2.run();  
