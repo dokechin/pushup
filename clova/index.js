@@ -32,7 +32,6 @@ class CEKRequest {
         return this.launchRequest(cekResponse)
       case 'IntentRequest':
         await this.intentRequest(cekResponse);
-        console.log("intentRequest end")
         return cekResponse;
       case 'SessionEndedRequest':
         return this.sessionEndedRequest(cekResponse)
@@ -102,56 +101,63 @@ class CEKRequest {
     return id2;
   }
   
-  async intentRequest(cekResponse) {
-    console.log('intentRequest')
-    console.dir(this.request)
-    const intent = this.request.intent.name
-    const slots = this.request.intent.slots
-    var count = 10
+  intentRequest(cekResponse) {
+    return new Promise( function(resolve, reject){
 
-    switch (intent) {
-    case 'CountIntent':
-      if (slots && slots.CountSlot && slots.CountSlot.value ) {
-        count = slots.CountSlot.value
-      }
-      else {
-        cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
-        cekResponse.setMultiturn({mode : 'play'});
-        break
-      }
-      if (count < 1 || count > 100) {
-        cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
-        cekResponse.setMultiturn({mode : 'play'});
-        break
-      }
-
-      cekResponse.appendSpeechText({
-        lang: 'ja',
-        type: 'URL',
-        value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
-      })      
-
-      this.makeAudio(count).then(function (id){
-        cekResponse.appendSpeechText({
-          lang: 'ja',
-          type: 'URL',
-          value: `${DOMAIN}/generated_${id}.mp3`
-        })    
+      console.log('intentRequest')
+      console.dir(this.request)
+      const intent = this.request.intent.name
+      const slots = this.request.intent.slots
+      var count = 10
+  
+      switch (intent) {
+      case 'CountIntent':
+        if (slots && slots.CountSlot && slots.CountSlot.value ) {
+          count = slots.CountSlot.value
+        }
+        else {
+          cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+          cekResponse.setMultiturn({mode : 'play'});
+          resolve();
+        }
+        if (count < 1 || count > 100) {
+          cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
+          cekResponse.setMultiturn({mode : 'play'});
+          resolve();
+        }
   
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
-          value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
+          value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
         })      
-        cekResponse.setMultiturn({mode : 'play'});
-      })
-      break;
+  
+        this.makeAudio(count).then(function (id){
+          cekResponse.appendSpeechText({
+            lang: 'ja',
+            type: 'URL',
+            value: `${DOMAIN}/generated_${id}.mp3`
+          })    
     
-    case 'Clova.GuideIntent': 
-    default: 
-      cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
-      cekResponse.setMultiturn({mode : 'play'});
-    }
+          cekResponse.appendSpeechText({
+            lang: 'ja',
+            type: 'URL',
+            value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
+          })      
+          cekResponse.setMultiturn({mode : 'play'});
+          resolve();
+        })
+        break;
+      
+      case 'Clova.GuideIntent': 
+      default: 
+        cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+        cekResponse.setMultiturn({mode : 'play'});
+        resolve();
+      }
+  
+    });
+
   }
 
   sessionEndedRequest(cekResponse) {
