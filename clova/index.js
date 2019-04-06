@@ -64,6 +64,7 @@ class CEKRequest {
       });
 
       command.on('end', function (){
+        console.log("end!!")
         resolve();
       })
     });
@@ -112,6 +113,7 @@ class CEKRequest {
       command.run();
       this.wait(promise);
 
+      console.log("mixing")
       command = SoxCommand();
       command.input(`${PUBLIC}/generated_${id}.mp3`);
       command.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
