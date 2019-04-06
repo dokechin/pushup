@@ -64,7 +64,10 @@ class CEKRequest {
       })
     });
   }
-  async intentRequest(cekResponse) {
+  async wait(promise){
+    await promise;
+  }
+  intentRequest(cekResponse) {
     console.log('intentRequest')
     console.dir(this.request)
     const intent = this.request.intent.name
@@ -115,7 +118,7 @@ class CEKRequest {
 
       var promise = this.makePromise(command);
       command.run();
-      await promise;
+      this.wait(promise);
       
       cekResponse.appendSpeechText({
         lang: 'ja',
