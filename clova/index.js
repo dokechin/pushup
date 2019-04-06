@@ -129,7 +129,7 @@ class CEKRequest {
         value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
       })      
 
-      makeAudio().then(function (id){
+      this.makeAudio().then(function (id){
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
