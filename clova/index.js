@@ -67,7 +67,14 @@ class CEKRequest {
         cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
         break
       }
-
+    
+       
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${DOMAIN}/hoge.mp3`
+      })
+      /** 
       var command = SoxCommand();
       command.input(`${PUBLIC}/info-girl1_info-girl1-start1.mp3`);
       var spart = false
@@ -96,7 +103,7 @@ class CEKRequest {
       command.input(`${PUBLIC}/info-girl1_info-girl1-yokudekimashita1.mp3`);
       command.output(`${PUBLIC}/hoge.mp3`).concat();
         
-      async function end() {
+      async function makePromise() {
         return new Promise( function(resolve, reject){
           command.on('start', function(commandLine) {
           });
@@ -116,21 +123,20 @@ class CEKRequest {
         
       async function exec() {
         command.run();
-        var promise = end();
+        var promise = makePromise();
         return promise;
       }
 
       await exec();
-
-      cekResponse.setSimpleSpeechText("123") 
  
       cekResponse.appendSpeechText({
         lang: 'ja',
         type: 'URL',
         value: `${DOMAIN}/hoge.mp3`
       })
-
+    */
       break;
+    
     case 'Clova.GuideIntent': 
     default: 
       cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
