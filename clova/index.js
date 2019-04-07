@@ -156,11 +156,6 @@ class CEKRequest {
             speed = 0;
           }
         }
-        else {
-          cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
-          cekResponse.setMultiturn({mode : 'play'});
-          resolve();
-        }
 
         if (count < 1 || count > 100) {
           cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
