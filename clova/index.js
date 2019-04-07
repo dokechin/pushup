@@ -27,7 +27,7 @@ class CEKRequest {
     console.log(`CEK Request: ${JSON.stringify(this.context)}, ${JSON.stringify(this.session)}`)
   }
 
-  async do(cekResponse) {
+  do(cekResponse) {
     switch (this.request.type) {
       case 'LaunchRequest':
         return this.launchRequest(cekResponse)
@@ -89,7 +89,7 @@ class CEKRequest {
     for(var i=0;i<count;i++){
       command1.input(`${PUBLIC}/` + (i+1) + '.mp3');
       if (speed > 0) {
-        command1.input(`${PUBLIC}/mute_0` + (speed) + 'sec.mp3');
+        command1.input(`${PUBLIC}/mute_0` + (speed) + `sec.mp3`);
       }
       if ((i+1) == count) {
         break;
