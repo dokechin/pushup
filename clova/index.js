@@ -168,6 +168,8 @@ class CEKRequest {
           resolve(cekResponse);
         }
   
+        console.log("count" + count)
+        console.log("speed" + speed)
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
