@@ -149,6 +149,7 @@ class CEKRequest {
           cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
           cekResponse.setMultiturn({mode : 'play'});
           resolve();
+          return;
         }
         if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
           if (slots.SpeedSlot.value == "遅く" || slots.SpeedSlot.value == "ゆっくり"){
