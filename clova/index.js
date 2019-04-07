@@ -81,7 +81,7 @@ class CEKRequest {
       })
     });
   }
-  async makeAudio(count){
+  async makeAudio(count,speed){
     console.log("concatinating")
 
     var command1 = SoxCommand();
