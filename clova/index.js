@@ -145,7 +145,6 @@ class CEKRequest {
           count = slots.CountSlot.value
         }
         else {
-          console.log("!!!!")
           cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
           cekResponse.setMultiturn({mode : 'play'});
           resolve();
@@ -173,7 +172,6 @@ class CEKRequest {
         })      
   
         that.makeAudio(count, speed).then(function (id){
-          console.log("then!!!")
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
