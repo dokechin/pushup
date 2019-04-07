@@ -163,10 +163,9 @@ class CEKRequest {
           cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
           cekResponse.setMultiturn({mode : 'play'});
           resolve();
+          return;
         }
   
-        console.log("count" + count)
-        console.log("speed" + speed)
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
@@ -188,6 +187,7 @@ class CEKRequest {
           })      
           cekResponse.setMultiturn({mode : 'play'});
           resolve();
+          return;
         })
         break;
       
