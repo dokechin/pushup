@@ -32,7 +32,7 @@ class CEKRequest {
       case 'LaunchRequest':
         return this.launchRequest(cekResponse)
       case 'IntentRequest':
-        return await this.intentRequest(cekResponse);
+        return this.intentRequest(cekResponse);
       case 'SessionEndedRequest':
         return this.sessionEndedRequest(cekResponse)
     }
@@ -147,7 +147,7 @@ class CEKRequest {
         else {
           cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
           cekResponse.setMultiturn({mode : 'play'});
-          resolve(cekResponse);
+          resolve();
         }
         if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
           if (slots.SpeedSlot.value == "遅く" || slots.SpeedSlot.value == "ゆっくり"){
@@ -159,13 +159,13 @@ class CEKRequest {
         else {
           cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
           cekResponse.setMultiturn({mode : 'play'});
-          resolve(cekResponse);
+          resolve();
         }
 
         if (count < 1 || count > 100) {
           cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
           cekResponse.setMultiturn({mode : 'play'});
-          resolve(cekResponse);
+          resolve();
         }
   
         console.log("count" + count)
@@ -190,7 +190,7 @@ class CEKRequest {
             value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
           })      
           cekResponse.setMultiturn({mode : 'play'});
-          resolve(cekResponse);
+          resolve();
         })
         break;
       
@@ -198,7 +198,7 @@ class CEKRequest {
       default: 
         cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
         cekResponse.setMultiturn({mode : 'play'});
-        resolve(cekResponse);
+        resolve();
       }
   
     });
