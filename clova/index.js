@@ -177,6 +177,7 @@ class CEKRequest {
         })      
   
         that.makeAudio(count, speed).then(function (id){
+          console.log("then!!!")
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
