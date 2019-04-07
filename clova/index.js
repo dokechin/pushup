@@ -45,7 +45,7 @@ class CEKRequest {
       type: 'URL',
       value: `${DOMAIN}/drum-japanese2.mp3`
     })
-    cekResponse.appendSpeechText("10まで数えて、のように指示してください")
+    cekResponse.appendSpeechText("10までゆっくり数えて、10まで速く数えて、のように指示してください")
     cekResponse.setMultiturn({mode : 'play'});
   }
 
@@ -145,7 +145,7 @@ class CEKRequest {
           count = slots.CountSlot.value
         }
         else {
-          cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+          cekResponse.appendSpeechText("10までゆっくり数えて、10まで速く数えて、のように指示してください")
           cekResponse.setMultiturn({mode : 'play'});
           resolve();
           return;
