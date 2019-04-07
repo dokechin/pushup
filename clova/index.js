@@ -88,6 +88,9 @@ class CEKRequest {
     var spart = false
     for(var i=0;i<count;i++){
       command1.input(`${PUBLIC}/` + (i+1) + '.mp3');
+      if (speed > 0) {
+        command1.input(`${PUBLIC}/mute_0` + (speed) + 'sec.mp3');
+      }
       if ((i+1) == count) {
         break;
       }
@@ -134,6 +137,7 @@ class CEKRequest {
       const intent = that.request.intent.name
       const slots = that.request.intent.slots
       var count = 10
+      var speed = 2
   
       switch (intent) {
       case 'CountIntent':
@@ -145,6 +149,19 @@ class CEKRequest {
           cekResponse.setMultiturn({mode : 'play'});
           resolve(cekResponse);
         }
+        if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
+          if (slots.SpeedSlot.value == "遅く" || slots.SpeedSlot.value == "ゆっくり"){
+            speed = 4;
+          } else if (slots.SpeedSlot.value == "速く" ){
+            speed = 0;
+          }
+        }
+        else {
+          cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
+          cekResponse.setMultiturn({mode : 'play'});
+          resolve(cekResponse);
+        }
+
         if (count < 1 || count > 100) {
           cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
           cekResponse.setMultiturn({mode : 'play'});
@@ -157,7 +174,7 @@ class CEKRequest {
           value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
         })      
   
-        that.makeAudio(count).then(function (id){
+        that.makeAudio(count, speed).then(function (id){
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
@@ -178,7 +195,7 @@ class CEKRequest {
       default: 
         cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
         cekResponse.setMultiturn({mode : 'play'});
-        resolve();
+        resolve(cekResponse);
       }
   
     });
