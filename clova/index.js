@@ -82,50 +82,18 @@ class CEKRequest {
     });
   }
   async makeAudio(count,speed){
-    console.log("concatinating")
+    console.log("triming")
 
     var command1 = SoxCommand();
-    var spart = false
-    for(var i=0;i<count;i++){
-      command1.input(`${PUBLIC}/` + (i+1) + '.mp3');
-      if (speed > 0) {
-        command1.input(`${PUBLIC}/mute_0` + (speed) + `sec.mp3`);
-      }
-      if ((i+1) == count) {
-        break;
-      }
-    }
     var id = shortid.generate();
-    command1.output(`${PUBLIC}/generated_${id}.mp3`).concat();
+    command1.input(`${PUBLIC}/count_` + speed + '_1.wav');
+    command1.output(`${PUBLIC}/generated_${id}.wav`).trim(0,count * (120 / speed));
   
     var promise1 = this.makePromise(command1);
     command1.run();
     await promise1;
 
-    var duration = await this.mp3duration(`${PUBLIC}/generated_${id}.mp3`);
-  
-    console.log("mixing")
-    var command2 = SoxCommand();
-    command2.input(`${PUBLIC}/generated_${id}.mp3`);
-    command2.input(`${PUBLIC}/people_stadium-buzz1.mp3`);
-    var id2 = shortid.generate();
-    command2.output(`${PUBLIC}/generated_${id2}.mp3`).combine('mix');
-  
-    var promise2 = this.makePromise(command2);
-    command2.run();  
-    await promise2;
-
-    console.log("triming")
-    var command3 = SoxCommand();
-    command3.input(`${PUBLIC}/generated_${id2}.mp3`);
-    var id3 = shortid.generate();
-    command3.output(`${PUBLIC}/generated_${id3}.mp3`).trim(0, duration);
-  
-    var promise3 = this.makePromise(command3);
-    command3.run();  
-    await promise3;
-
-    return id3;
+    return id;
   }
   
   intentRequest(cekResponse) {
@@ -145,16 +113,16 @@ class CEKRequest {
           count = slots.CountSlot.value
         }
         else {
-          cekResponse.appendSpeechText("10までゆっくり数えて、10まで速く数えて、のように指示してください")
+          cekResponse.appendSpeechText("10まで数えてのように指示してください")
           cekResponse.setMultiturn({mode : 'play'});
           resolve();
           return;
         }
         if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
           if (slots.SpeedSlot.value == "遅く" || slots.SpeedSlot.value == "ゆっくり"){
-            speed = 4;
+            speed = 80;
           } else if (slots.SpeedSlot.value == "速く" ){
-            speed = 0;
+            speed = 120;
           }
         }
 
