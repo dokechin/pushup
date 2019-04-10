@@ -105,7 +105,7 @@ class CEKRequest {
       const intent = that.request.intent.name
       const slots = that.request.intent.slots
       var count = 10
-      var speed = 2
+      var speed = 100
   
       switch (intent) {
       case 'CountIntent':
