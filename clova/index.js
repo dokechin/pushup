@@ -86,7 +86,8 @@ class CEKRequest {
 
     var command1 = SoxCommand();
     var id = shortid.generate();
-    command1.input(`${PUBLIC}/count_` + speed + '_1.wav');
+    var day = new Date().getDay() + 1;
+    command1.input(`${PUBLIC}/count_` + speed + '_' + day + '.wav');
     command1.output(`${PUBLIC}/generated_${id}.wav`).trim(0,count * (120 / speed));
   
     var promise1 = this.makePromise(command1);
