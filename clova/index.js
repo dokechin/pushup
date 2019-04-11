@@ -144,7 +144,7 @@ class CEKRequest {
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
-            value: `${DOMAIN}/generated_${id}.mp3`
+            value: `${DOMAIN}/generated_${id}.wav`
           })    
     
           cekResponse.appendSpeechText({
