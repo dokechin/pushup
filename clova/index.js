@@ -137,9 +137,15 @@ class CEKRequest {
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
-          value: `${DOMAIN}/info-girl1_info-girl1-start1.mp3`
+          value: `${DOMAIN}/info-girl1_info-girl1-youi1.mp3`
         })      
-  
+
+        cekResponse.appendSpeechText({
+          lang: 'ja',
+          type: 'URL',
+          value: `${DOMAIN}/gong-played1.mp3`
+        })      
+
         that.makeAudio(count, speed).then(function (id){
           cekResponse.appendSpeechText({
             lang: 'ja',
@@ -150,8 +156,8 @@ class CEKRequest {
           cekResponse.appendSpeechText({
             lang: 'ja',
             type: 'URL',
-            value: `${DOMAIN}/info-girl1_info-girl1-yokudekimashita1.mp3`
-          })      
+            value: `${DOMAIN}/gong-played2.mp3`
+          })    
           cekResponse.setMultiturn({mode : 'play'});
           resolve();
           return;
