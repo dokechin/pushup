@@ -1,30 +1,30 @@
 #!/bin/perl
 my @bgm80 = (
-  "121_dr_bpm080_4-4_rock.wav",
-  "122_dr_bpm080_4-4_rock.wav",
-  "123_dr_bpm080_4-4_rock.wav",
-  "124_dr_bpm080_4-4_rock.wav",
-  "125_dr_bpm080_4-4_rock.wav",
-  "126_dr_bpm080_4-4_rock.wav",
-  "127_dr_bpm080_4-4_rock.wav",
+  "looperman-l-0233631-0021363-jdot2006-relax4awhilebeat.wav",
+  "looperman-l-0782612-0082005-40a-color-combination.wav",
+  "looperman-l-0782612-0120308-40a-the-mood.wav",
+  "looperman-l-1414881-0141164-less-than-love-4-bpm-80-key-a.wav",
+  "looperman-l-1441718-0152140-new-era-malianteo-string.wav",
+  "looperman-l-1839483-0125395-ageless-battle-strings.wav",
+  "looperman-l-2283018-0119951-amusah-stacc-strings-section-d-minor-80-bpm.wav",
 );
 my @bgm100 = (
-  "101_dr_bpm100_4-4_rock.wav",
-  "102_dr_bpm100_4-4_rock.wav",
-  "103_dr_bpm100_4-4_rock.wav",
-  "104_dr_bpm100_4-4_rock.wav",
-  "105_dr_bpm100_4-4_rock.wav",
-  "106_dr_bpm100_4-4_rock.wav",
-  "107_dr_bpm100_4-4_rock.wav",
+  "looperman-l-0039029-0008553-rei4real-rei-shine-100-bpm.wav",
+  "looperman-l-0111346-0040598-planetjazzbass-space-junkie.wav",
+  "looperman-l-0173301-0160446-marimbamelody-iii.wav",
+  "looperman-l-0310407-0026056-fella1-groove-e.wav",
+  "looperman-l-1564425-0110478-rasputin1963-coffee-colored-you.wav",
+  "looperman-l-2212484-0156046-more-moombathon-drums.wav",
+  "looperman-l-2707895-0128753-trap-drums-and-brass.wav",
 );
 my @bgm120 = (
-  "081_dr_bpm120_4-4_rock.wav",
-  "082_dr_bpm120_4-4_rock.wav",
-  "083_dr_bpm120_4-4_rock.wav",
-  "084_dr_bpm120_4-4_rock.wav",
-  "085_dr_bpm120_4-4_rock.wav",
-  "086_dr_bpm120_4-4_rock.wav",
-  "087_dr_bpm120_4-4_rock.wav",
+  "looperman-l-0159051-0037203-minor2go-m2g-mix-discofox.wav",
+  "looperman-l-0173301-0106381-eendee-taptap.wav",
+  "looperman-l-0576432-0080273-kaynine-funkee-drumloop.wav",
+  "looperman-l-1319133-0089199-fanto8bc-percu-drum-by-fanto-8-bc.wav",
+  "looperman-l-1319133-0154452-synth-elec.wav",
+  "looperman-l-2224707-0139761-dance-dance-dance-120bpm.wav",
+  "looperman-l-2367733-0114199-theflakesmaster-dance-beat.wav",
 );
 
 $index = 1;
