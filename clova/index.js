@@ -106,7 +106,7 @@ class CEKRequest {
       const intent = that.request.intent.name
       const slots = that.request.intent.slots
       var count = 10
-      var speed = 100
+      var speed = 80
   
       switch (intent) {
       case 'CountIntent':
@@ -121,8 +121,10 @@ class CEKRequest {
         }
         if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
           if (slots.SpeedSlot.value == "遅く" || slots.SpeedSlot.value == "ゆっくり"){
-            speed = 80;
+            speed = 60;
           } else if (slots.SpeedSlot.value == "速く" ){
+            speed = 100;
+          } else if (slots.SpeedSlot.value == "超速く" ){
             speed = 120;
           }
         }

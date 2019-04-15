@@ -1,4 +1,13 @@
 #!/bin/perl
+my @bgm60 = (
+  "looperman-l-0207475-0146268-meditation.wav",
+  "looperman-l-0207475-0160410-your-far-away-love.wav",
+  "looperman-l-1320412-0108465-jakeletts-generic-hiphop-lead.wav",
+  "looperman-l-2218475-0145986-piano-for-rainy-days.wav",
+  "looperman-l-2516874-0145804-travis-scott-type-electric-piano-60.wav",
+  "looperman-l-2654697-0137316-classic-guitar-105.wav",
+  "looperman-l-2654697-0155335-violin-ensemble-3901.wav",
+);
 my @bgm80 = (
   "looperman-l-0233631-0021363-jdot2006-relax4awhilebeat.wav",
   "looperman-l-0782612-0082005-40a-color-combination.wav",
@@ -26,6 +35,22 @@ my @bgm120 = (
   "looperman-l-2224707-0139761-dance-dance-dance-120bpm.wav",
   "looperman-l-2367733-0114199-theflakesmaster-dance-beat.wav",
 );
+
+$index = 1;
+foreach(@bgm60){
+
+  my $command = "sox ./bgm/60/". $_ ." ./bgm/60/." . $_ . " repeat 20";
+  print ($command);
+  print ("\n");
+  system($command);
+
+  my $command = "sox ./bgm/60/." . $_ . " ./public/clova/bgm_60_" . $index . ".wav trim 0 200";
+  print ($command);
+  print ("\n");
+  system($command);
+
+  $index++;
+}
 
 $index = 1;
 foreach(@bgm80){
@@ -75,7 +100,7 @@ foreach(@bgm120){
   $index++;
 }
 
-my $command = "rm ./bgm/80/.* ./bgm/100/.* ./bgm/120/.*";
+my $command = "rm ./bgm/60/.* ./bgm/80/.* ./bgm/100/.* ./bgm/120/.*";
 print ($command);
 print ("\n");
 system($command);

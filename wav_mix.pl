@@ -2,6 +2,20 @@
 
 my $command = "sox ";
 for(my $i=0;$i<7;$i++){
+  if (-e ("./public/clova/bgm_60_" . ($i+1) . ".wav")) {
+    $command = $command . "-m ";
+    $command = $command . "./public/clova/voice_60.wav ";
+    $command = $command . "./public/clova/bgm_60_" . ($i+1) . ".wav ";
+    $command = $command . "./public/clova/count_60_" . ($i+1) . ".wav";
+    print ($command);
+    print ("\n");
+    system($command);
+    $command = "sox ";
+  }
+}
+
+my $command = "sox ";
+for(my $i=0;$i<7;$i++){
   if (-e ("./public/clova/bgm_80_" . ($i+1) . ".wav")) {
     $command = $command . "-m ";
     $command = $command . "./public/clova/voice_80.wav ";
