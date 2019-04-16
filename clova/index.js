@@ -120,6 +120,7 @@ class CEKRequest {
           return;
         }
         if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
+          console.log("SpeedSlot:" + slots.SpeedSlot.value)
           if (slots.SpeedSlot.value == "遅く" || slots.SpeedSlot.value == "ゆっくり"){
             speed = 60;
           } else if (slots.SpeedSlot.value == "速く" ){
@@ -128,6 +129,7 @@ class CEKRequest {
             speed = 120;
           }
         }
+        console.log("speed:" + speed)
 
         if (count < 1 || count > 100) {
           cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
