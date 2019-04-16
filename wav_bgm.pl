@@ -1,21 +1,21 @@
 #!/bin/perl
 my @bgm60 = (
-  "looperman-l-0207475-0146268-meditation.wav",
-  "looperman-l-0207475-0160410-your-far-away-love.wav",
-  "looperman-l-1320412-0108465-jakeletts-generic-hiphop-lead.wav",
-  "looperman-l-2218475-0145986-piano-for-rainy-days.wav",
-  "looperman-l-2516874-0145804-travis-scott-type-electric-piano-60.wav",
-  "looperman-l-2654697-0137316-classic-guitar-105.wav",
-  "looperman-l-2654697-0155335-violin-ensemble-3901.wav",
+  "looperman-l-0592478-0123555-designedimpression-drum-loop-airheads.wav",
+  "looperman-l-0671112-0070394-danke-ambient-drum-loop.wav",
+  "looperman-l-0878398-0092130-keishh-maxed-out-percs-4.wav",
+  "looperman-l-1320412-0108464-jakeletts-lagato-808-drum-loop.wav",
+  "looperman-l-1581687-0132854-2nick8-hiccup-beat.wav",
+  "looperman-l-2041494-0102629-sinomusic-sino-music-delay-arps.wav",
+  "looperman-l-2893278-0142545-happy-halloween-hiphop-drum-loop.wav",
 );
 my @bgm80 = (
+  "121_dr_bpm080_4-4_rock.wav",
   "looperman-l-0233631-0021363-jdot2006-relax4awhilebeat.wav",
-  "looperman-l-0782612-0082005-40a-color-combination.wav",
-  "looperman-l-0782612-0120308-40a-the-mood.wav",
-  "looperman-l-1414881-0141164-less-than-love-4-bpm-80-key-a.wav",
+  "looperman-l-0842499-0146015-hiphop-drums.wav",
   "looperman-l-1441718-0152140-new-era-malianteo-string.wav",
   "looperman-l-1839483-0125395-ageless-battle-strings.wav",
-  "looperman-l-2283018-0119951-amusah-stacc-strings-section-d-minor-80-bpm.wav",
+  "looperman-l-2295222-0154088-cam-drums.wav",
+  "looperman-l-2767269-0147140-original-80s-beat-sample-35.wav",
 );
 my @bgm100 = (
   "looperman-l-0039029-0008553-rei4real-rei-shine-100-bpm.wav",
@@ -39,7 +39,7 @@ my @bgm120 = (
 $index = 1;
 foreach(@bgm60){
 
-  my $command = "sox ./bgm/60/". $_ ." ./bgm/60/." . $_ . " repeat 20";
+  my $command = "sox ./bgm/60/". $_ ." ./bgm/60/." . $_ . " repeat 40";
   print ($command);
   print ("\n");
   system($command);
@@ -55,7 +55,7 @@ foreach(@bgm60){
 $index = 1;
 foreach(@bgm80){
 
-  my $command = "sox ./bgm/80/". $_ ." ./bgm/80/." . $_ . " repeat 20";
+  my $command = "sox ./bgm/80/". $_ ." ./bgm/80/." . $_ . " repeat 30";
   print ($command);
   print ("\n");
   system($command);
