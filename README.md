@@ -4,7 +4,7 @@
 This repository stores the REST API server source code used for the Clova extension "Kinsta". To see how the "Kinsta" extension works, use the voice command "キンスタを起動して (Launch the Kinsta)" on the Clova app or any Clova-compatible speaker (such as WAVE or Friends). The extension will tell you the counting. You can roll 1-100 counts at a time, and the extension will tell you the counts.
 
 ### Requirements
-The REST API server for the "Dice Drawer" Clova extension is implemented using Node.js. Any compatible operating system including Windows, macOS, Linux can run the server. You can find more information on compatibility, and download the latest version of Node.js on the official Node.js website. https://nodejs.org/ja/download/current/
+The REST API server for the "Kinsta" Clova extension is implemented using Node.js. Any compatible operating system including Windows, macOS, Linux can run the server. You can find more information on compatibility, and download the latest version of Node.js on the official Node.js website. https://nodejs.org/ja/download/current/
 
 ### Installation
 Follow the steps below to install the "Dice Drawer" REST API server source code.
