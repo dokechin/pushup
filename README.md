@@ -14,7 +14,7 @@ Follow the steps below to install the "Kinar" REST API server source code.
 4) Edit config.js to replace "com.example.dice" with your Extension ID 
 
 ### Usage
-The REST API server for the "Kinar" Clova extension is designed to return appropriate responses to the extension requests sent from the Clova platform. Be advised that even if you run the API server, the API requests must be identical to the requests sent from the Clova platform. When publicly launching the service, you must change the domain to a HTTPS-based domain that can be accessed publicly.
+The REST API server for the "Kinsta" Clova extension is designed to return appropriate responses to the extension requests sent from the Clova platform. Be advised that even if you run the API server, the API requests must be identical to the requests sent from the Clova platform. When publicly launching the service, you must change the domain to a HTTPS-based domain that can be accessed publicly.
 - Run the API server: node app.js
   - To disable the signature verification、run  `DEBUG=true node app.js` 
 - Test the API server: Using [Postman](https://www.getpostman.com/), send the following JSON request to test if a JSON response is returned.
