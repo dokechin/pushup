@@ -121,13 +121,7 @@ class CEKRequest {
         }
         if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
           console.log("SpeedSlot:" + slots.SpeedSlot.value)
-          if (slots.SpeedSlot.value == "遅く" || slots.SpeedSlot.value == "ゆっくり"){
-            speed = 60;
-          } else if (slots.SpeedSlot.value == "速く" ){
-            speed = 100;
-          } else if (slots.SpeedSlot.value == "超速く" ){
-            speed = 120;
-          }
+          speed = slots.SpeedSlot.value * 2;
         }
         console.log("speed:" + speed)
 
