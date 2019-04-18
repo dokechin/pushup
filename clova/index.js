@@ -112,25 +112,28 @@ class CEKRequest {
       const slots = that.request.intent.slots
       var count = 10
       var speed = 80
+      var type = ''
   
       switch (intent) {
       case 'CountIntent':
       case 'RepeatIntent':
         if (intent == "RepeatIntent"){
           if (that.session.sessionAttributes.state == 'end'){
+            type = that.session.sessionAttributes.type;
             count = that.session.sessionAttributes.count;
             speed = that.session.sessionAttributes.speed;
           } else {
-            cekResponse.appendSpeechText("カウントする回数を指示してください")
+            cekResponse.appendSpeechText("腕立て10回のように指示してください")
             cekResponse.setMultiturn({state : 'error'});
             resolve();
           }
         } else {
-          if (slots && slots.CountSlot && slots.CountSlot.value ) {
+          if (slots && slots.CountSlot && slots.CountSlot.value && slot.TypeSlot && slots.TypeSlot.value) {
+            type = slots.TypeSlot.value
             count = slots.CountSlot.value
           }
           else {
-            cekResponse.appendSpeechText("カウントする回数を指示してください")
+            cekResponse.appendSpeechText("腕立て10回のように指示してください")
             cekResponse.setMultiturn({state : 'error'});
             resolve();
             return;
@@ -150,6 +153,7 @@ class CEKRequest {
             return;
           }
         }
+        cekResponse.appendSpeechText( type + count + "回")
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
@@ -178,7 +182,7 @@ class CEKRequest {
           const userId = that.session.user.userId;
           client.pushMessage(userId, {
             type: 'text',
-            text: count + '回、筋トレしました!'
+            text: type + count + '回、よくできました。'
           });
           resolve();
           return;
@@ -187,7 +191,7 @@ class CEKRequest {
       
       case 'Clova.GuideIntent': 
       default: 
-        cekResponse.setSimpleSpeechText("カウントする回数を指示してください");
+        cekResponse.setSimpleSpeechText("腕立て10回のように指示してください”);
         cekResponse.setMultiturn({state : 'initial'});
         resolve();
       }
