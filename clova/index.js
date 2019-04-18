@@ -113,9 +113,9 @@ class CEKRequest {
       case 'CountIntent':
       case 'RepeatIntent':
         if (intent == "RepeatIntent"){
-          if (that.session.sessionAttribute.state == 'end'){
-            count = that.session.sessionAttribute.count;
-            speed = taht.session.sessionAttribute.speed;
+          if (that.session.sessionAttributes.state == 'end'){
+            count = that.session.sessionAttributes.count;
+            speed = taht.session.sessionAttributes.speed;
           } else {
             cekResponse.appendSpeechText("カウントする回数を指示してください")
             cekResponse.setMultiturn({state : 'error'});
