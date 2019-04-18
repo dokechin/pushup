@@ -50,7 +50,7 @@ class CEKRequest {
       type: 'URL',
       value: `${DOMAIN}/drum-japanese2.mp3`
     })
-    cekResponse.appendSpeechText("カウントする回数を指示してください")
+    cekResponse.appendSpeechText("腕立て10回のように指示してください")
     cekResponse.setMultiturn({state : 'initial'});
   }
 
