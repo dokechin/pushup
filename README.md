@@ -43,7 +43,7 @@ The REST API server for the "Kintore Cheer" Clova extension is designed to retur
         "deviceId": "da6db6c26dcbe1a077eb2c890031ce2b1980asf2d30e00ee58804daf0ee89eff"
       },
       "application": {
-        "applicationId": "com.example.dice"
+        "applicationId": "com.dokechin.kintorecheer"
       }
     }
   },
