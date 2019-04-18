@@ -7,6 +7,7 @@ var SoxCommand = require('sox-audio');
 const PUBLIC= "./public/clova";
 const shortid = require('shortid');
 const mp3Duration = require('mp3-duration');
+const speeds = [60, 80, 100, 120];
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -45,8 +46,8 @@ class CEKRequest {
       type: 'URL',
       value: `${DOMAIN}/drum-japanese2.mp3`
     })
-    cekResponse.appendSpeechText("10まで数えて、のように指示してください")
-    cekResponse.setMultiturn({mode : 'play'});
+    cekResponse.appendSpeechText("カウントする回数を指示してください")
+    cekResponse.setMultiturn({state : 'initial'});
   }
 
   makePromise(command) {
@@ -110,28 +111,41 @@ class CEKRequest {
   
       switch (intent) {
       case 'CountIntent':
-        if (slots && slots.CountSlot && slots.CountSlot.value ) {
-          count = slots.CountSlot.value
-        }
-        else {
-          cekResponse.appendSpeechText("10まで数えてのように指示してください")
-          cekResponse.setMultiturn({mode : 'play'});
-          resolve();
-          return;
-        }
-        if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
-          console.log("SpeedSlot:" + slots.SpeedSlot.value)
-          speed = slots.SpeedSlot.value * 2;
-        }
-        console.log("speed:" + speed)
+      case 'RepeatIntent':
+        if (intent == "RepeatIntent"){
+          if (that.session.state == 'end'){
+            count = that.session.count;
+            speed = taht.session.speed;
+          } else {
+            cekResponse.appendSpeechText("カウントする回数を指示してください")
+            cekResponse.setMultiturn({state : 'error'});
+            resolve();
+          }
+        } else {
+          if (slots && slots.CountSlot && slots.CountSlot.value ) {
+            count = slots.CountSlot.value
+          }
+          else {
+            cekResponse.appendSpeechText("カウントする回数を指示してください")
+            cekResponse.setMultiturn({state : 'error'});
+            resolve();
+            return;
+          }
+          if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
+            speed = slots.SpeedSlot.value * 2;
+            if (!speeds.includes(speed)){
+              speed = 80;
+            }
+          }
+          console.log("speed:" + speed)
 
-        if (count < 1 || count > 100) {
-          cekResponse.setSimpleSpeechText("1から100の間で指定してください。") 
-          cekResponse.setMultiturn({mode : 'play'});
-          resolve();
-          return;
+          if (count < 1 || count > 100) {
+            cekResponse.setSimpleSpeechText("カウント数は1から100の間で指定してください。") 
+            cekResponse.setMultiturn({state : 'error'});
+            resolve();
+            return;
+          }
         }
-  
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
@@ -156,7 +170,7 @@ class CEKRequest {
             type: 'URL',
             value: `${DOMAIN}/gong-played2.mp3`
           })    
-          cekResponse.setMultiturn({mode : 'play'});
+          cekResponse.setMultiturn({state : 'end', count: count, speed : speed});
           resolve();
           return;
         })
@@ -164,8 +178,8 @@ class CEKRequest {
       
       case 'Clova.GuideIntent': 
       default: 
-        cekResponse.setSimpleSpeechText("10まで数えて、のように指示してください") 
-        cekResponse.setMultiturn({mode : 'play'});
+        cekResponse.setSimpleSpeechText("カウントする回数を指示してください");
+        cekResponse.setMultiturn({state : 'initial'});
         resolve();
       }
   
