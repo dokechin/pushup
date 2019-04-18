@@ -1,0 +1,17 @@
+[INTENT SLOT]
+CountSlot	CLOVA.NUMBER
+SpeedSlot	CLOVA.NUMBER
+
+[INTENT EXPRESSION]
+<SpeedSlot>30</SpeedSlot>で<CountSlot>20</CountSlot>まで数えて
+スピード<SpeedSlot>40</SpeedSlot>で<CountSlot>40</CountSlot>回
+スピード<SpeedSlot>30</SpeedSlot>で<CountSlot>40</CountSlot>
+<SpeedSlot>50</SpeedSlot>で<CountSlot>30</CountSlot>回
+スピード<SpeedSlot>40</SpeedSlot>で<CountSlot>30</CountSlot>まで
+<SpeedSlot>30</SpeedSlot>で<CountSlot>10</CountSlot>
+<CountSlot>10</CountSlot>回
+<CountSlot>10</CountSlot>まで数えて
+<SpeedSlot>30</SpeedSlot>で<CountSlot>10</CountSlot>まで
+<CountSlot>10</CountSlot>
+<CountSlot>10</CountSlot>まで
+スピード<SpeedSlot>40</SpeedSlot>で<CountSlot>10</CountSlot>まで数えて
