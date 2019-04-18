@@ -178,7 +178,7 @@ class CEKRequest {
             type: 'URL',
             value: `${DOMAIN}/gong-played2.mp3`
           })    
-          cekResponse.setMultiturn({state : 'end', count: count, speed : speed});
+          cekResponse.setMultiturn({state : 'end', type: type, count: count, speed: speed});
           const userId = that.session.user.userId;
           client.pushMessage(userId, {
             type: 'text',
