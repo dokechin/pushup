@@ -182,7 +182,7 @@ class CEKRequest {
           const userId = that.session.user.userId;
           client.pushMessage(userId, {
             type: 'text',
-            text: type + count + '回、よくできました。'
+            text: type + 'をスピード' + speed + "で" + count + '回、よくできました。'
           });
           resolve();
           return;
