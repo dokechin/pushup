@@ -1,7 +1,7 @@
 const arrayShuffle = require('array-shuffle')
 const uuid = require('uuid').v4
 const _ = require('lodash')
-const { DOMAIN, ExtensionId, DEBUG ,TOKEN} = require('../config')
+const { DOMAIN, ExtensionId, DEBUG ,BOT_ACCESS_TOKEN} = require('../config')
 var verifier = require('../util/verifier.js')
 var SoxCommand = require('sox-audio');
 const PUBLIC= "./public/clova";
