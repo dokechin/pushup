@@ -1,13 +1,17 @@
 const arrayShuffle = require('array-shuffle')
 const uuid = require('uuid').v4
 const _ = require('lodash')
-const { DOMAIN, ExtensionId, DEBUG } = require('../config')
+const { DOMAIN, ExtensionId, DEBUG ,TOKEN} = require('../config')
 var verifier = require('../util/verifier.js')
 var SoxCommand = require('sox-audio');
 const PUBLIC= "./public/clova";
 const shortid = require('shortid');
 const mp3Duration = require('mp3-duration');
 const speeds = [60, 80, 100, 120];
+const line = require('@line/bot-sdk');
+const client = new line.Client({
+  channelAccessToken: BOT_ACCESS_TOKEN //Messaging APIのアクセストークン
+});
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -171,6 +175,11 @@ class CEKRequest {
             value: `${DOMAIN}/gong-played2.mp3`
           })    
           cekResponse.setMultiturn({state : 'end', count: count, speed : speed});
+          const userId = that.session.user.userId;
+          client.pushMessage(userId, {
+            type: 'text',
+            text: count + '回、筋トレしました!'
+          });
           resolve();
           return;
         })
