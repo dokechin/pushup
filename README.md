@@ -9,7 +9,7 @@ The REST API server for the "Kintore Cheer" Clova extension is implemented using
 ### Installation
 Follow the steps below to install the "Kintore Cheer" REST API server source code.
 1) Install Node.js: https://nodejs.org/ja/download/current/
-2) Download the source code: git clone https://github.com/line/clova-extension-sample-dice.git
+2) Download the source code: git clone https://github.com/dokechin/pushup.git
 3) Install library dependencies: npm install
 4) Edit config.js to replace "com.example.dice" with your Extension ID 
 
