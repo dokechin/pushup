@@ -191,7 +191,7 @@ class CEKRequest {
       
       case 'Clova.GuideIntent': 
       default: 
-        cekResponse.setSimpleSpeechText("腕立て10回のように指示してください”);
+        cekResponse.appendSpeechText("腕立て10回のように指示してください")
         cekResponse.setMultiturn({state : 'initial'});
         resolve();
       }
