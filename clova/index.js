@@ -128,7 +128,7 @@ class CEKRequest {
             resolve();
           }
         } else {
-          if (slots && slots.CountSlot && slots.CountSlot.value && slot.TypeSlot && slots.TypeSlot.value) {
+          if (slots && slots.CountSlot && slots.CountSlot.value && slots.TypeSlot && slots.TypeSlot.value) {
             type = slots.TypeSlot.value
             count = slots.CountSlot.value
           }
