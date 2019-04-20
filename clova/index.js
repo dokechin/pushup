@@ -201,7 +201,7 @@ class CEKRequest {
           });
           that.pgclient.connect()
           const query = {
-            text: 'INSERT INTO train(execute_date, type, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
+            text: 'INSERT INTO train(execute_date, menu_id, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
             values: [MENU_TYPE.get(type), count, speed, that.session.user.userId],
           }
           that.pgclient.query(query, (err, res) => {
