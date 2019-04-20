@@ -28,7 +28,12 @@ const botReq = async function (req, res, next) {
                     type: "text",
                     text: "これはこれは"
                 }));
-            }
+            } else {
+                events_processed.push(bot.replyMessage(event.replyToken, {
+                    type: "text",
+                    text: "申し訳ございません。現在作成中です。もう少しお待ちください。"
+                }));
+			}
         }
     });
 
