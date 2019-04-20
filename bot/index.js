@@ -10,7 +10,7 @@ const line_config = {
 // APIコールのためのクライアントインスタンスを作成
 const bot = new line.Client(line_config);
 
-const botReq = async function (req, replyMessage, next) {
+const botReq = async function (req, res, next) {
     res.sendStatus(200);
 
     // すべてのイベント処理のプロミスを格納する配列。
