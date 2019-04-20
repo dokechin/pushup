@@ -12,7 +12,7 @@ const line = require('@line/bot-sdk');
 const client = new line.Client({
   channelAccessToken: BOT_ACCESS_TOKEN //Messaging APIのアクセストークン
 });
-var { PgClient } = require('pg');
+var { Client } = require('pg');
 const MENU_TYPE = new Map([
   ["腕立て", 1],
   ["腹筋", 2],
@@ -36,7 +36,7 @@ class CEKRequest {
     this.request = httpReq.body.request
     this.context = httpReq.body.context
     this.session = httpReq.body.session
-    this.pgclient = new PgClient({
+    this.pgclient = new Client({
       user: 'pushup',
       host: 'localhost',
       database: 'pushup',
