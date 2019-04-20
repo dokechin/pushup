@@ -209,8 +209,9 @@ class CEKRequest {
             if (err) {
               console.log(err)
               reject();
+            } else {
+              resolve();
             }
-            resolve();
           })
           return;
         })
