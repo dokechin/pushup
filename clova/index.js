@@ -12,6 +12,13 @@ const line = require('@line/bot-sdk');
 const client = new line.Client({
   channelAccessToken: BOT_ACCESS_TOKEN //Messaging APIのアクセストークン
 });
+var { PgClient } = require('pg');
+const MENU_TYPE = new Map([
+  ["腕立て", 1],
+  ["腹筋", 2],
+  ["背筋", 3],
+  ["スクワット", 4],
+]);
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -29,6 +36,14 @@ class CEKRequest {
     this.request = httpReq.body.request
     this.context = httpReq.body.context
     this.session = httpReq.body.session
+    this.pgclient = new PgClient({
+      user: 'pushup',
+      host: 'localhost',
+      database: 'pushup',
+      password: DB_PASSWORD,
+      port: 5432
+  })
+  
     console.log(`CEK Request: ${JSON.stringify(this.context)}, ${JSON.stringify(this.session)}`)
   }
 
@@ -184,7 +199,19 @@ class CEKRequest {
             type: 'text',
             text: type + 'をスピード' + speed + "で" + count + '回、よくできました。'
           });
-          resolve();
+          that.pgclient.connect()
+          const query = {
+            text: 'INSERT INTO train(execute_date, type, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
+            values: [MENU_TYPE.get(type), count, speed, that.session.user.userId],
+          }
+          client.query(query, (err, res) => {
+            that.pgclient.end()
+            if (err) {
+              console.log(err)
+              reject();
+            }
+            resolve();
+          })
           return;
         })
         break;
