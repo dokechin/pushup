@@ -10,7 +10,7 @@ const line_config = {
 // APIコールのためのクライアントインスタンスを作成
 const bot = new line.Client(line_config);
 
-const botReq = async function (req, res, next) {
+const botReq = async function (req, replyMessage, next) {
     res.sendStatus(200);
 
     // すべてのイベント処理のプロミスを格納する配列。
@@ -18,7 +18,8 @@ const botReq = async function (req, res, next) {
 
     // イベントオブジェクトを順次処理。
     req.body.events.forEach((event) => {
-        // この処理の対象をイベントタイプがメッセージで、かつ、テキストタイプだった場合に限定。
+		// この処理の対象をイベントタイプがメッセージで、かつ、テキストタイプだった場合に限定。
+		console.log(event)
         if (event.type == "message" && event.message.type == "text"){
             // ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
             if (event.message.text == "こんにちは"){
