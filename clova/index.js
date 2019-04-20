@@ -204,7 +204,7 @@ class CEKRequest {
             text: 'INSERT INTO train(execute_date, type, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
             values: [MENU_TYPE.get(type), count, speed, that.session.user.userId],
           }
-          client.query(query, (err, res) => {
+          that.pgclient.query(query, (err, res) => {
             that.pgclient.end()
             if (err) {
               console.log(err)
