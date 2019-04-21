@@ -47,7 +47,7 @@ const botReq = async function (req, res, next) {
 						var text = "今月の集計¥n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
-							text = text + res.rows(i).menu + res.rows(i).count + "回¥n"
+							text = text + res.rows[i].menu + res.rows[i].count + "回¥n"
 						}
 						events_processed.push(bot.replyMessage(event.replyToken, {
 							type: "text",
@@ -73,7 +73,7 @@ const botReq = async function (req, res, next) {
 						var text = "今日の集計¥n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
-							text = text + res.rows(i).menu + res.rows(i).count + "回¥n"
+							text = text + res.rows[i].menu + res.rows[i].count + "回¥n"
 						}
 						events_processed.push(bot.replyMessage(event.replyToken, {
 							type: "text",
