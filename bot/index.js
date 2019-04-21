@@ -37,7 +37,7 @@ const botReq = async function (req, res, next) {
 				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,0);
 				const query = {
 				  text: 'SELECT menu.menu as menu,SUM(train.COUNT) as count FROM TRAIN inner join menu on train.menu_id = menu.menu_id WHERE train.execute_date between $1:timestamp and $2:timestamp train.user_id = $1 group by menu.menu',
-				  values: [event.source.userId],
+				  values: [firstDay,lastDay,event.source.userId],
 				}
 				pgclient.query(query, (err, res) => {
 					if (err) {
