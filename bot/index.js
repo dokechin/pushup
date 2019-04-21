@@ -36,7 +36,7 @@ const botReq = async function (req, res, next) {
 				var firstDay = new Date(today.getFullYear(),today.getMonth()+1,1);
 				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,0);
 				const query = {
-				  text: 'SELECT menu.menu as menu,SUM(train.COUNT) as count FROM TRAIN inner join menu on train.menu_id = menu.menu_id WHERE train.user_id = $1 group by menu.menu',
+				  text: 'SELECT menu.menu as menu,SUM(train.COUNT) as count FROM TRAIN inner join menu on train.menu_id = menu.menu_id WHERE train.execute_date between $1:timestamp and $2:timestamp train.user_id = $1 group by menu.menu',
 				  values: [event.source.userId],
 				}
 				pgclient.query(query, (err, res) => {
@@ -44,10 +44,10 @@ const botReq = async function (req, res, next) {
 						console.log(err)
 					} else {
 						console.log(res.rows);
-						var text = "今月の集計¥n";
+						var text = "今月の集計/n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
-							text = text + res.rows[i].menu + res.rows[i].count + "回¥n"
+							text = text + res.rows[i].menu + res.rows[i].count + "回/n"
 						}
 						events_processed.push(bot.replyMessage(event.replyToken, {
 							type: "text",
@@ -62,7 +62,7 @@ const botReq = async function (req, res, next) {
 				var firstDay = new Date(today.getFullYear(),today.getMonth()+1,today.getDay(),0,0,0,0);
 				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,today.getDay(),23,59,59,999);
 				const query = {
-					text: 'SELECT menu.menu as menu,SUM(train.count) as count FROM train inner join menu on train.menu_id = menu.menu_id WHERE train.execute_date between $1 and $2 and train.user_id = $3 group by menu.menu',
+					text: 'SELECT menu.menu as menu,SUM(train.count) as count FROM train inner join menu on train.menu_id = menu.menu_id WHERE train.execute_date between $1:timestamp and $2:timestamp and train.user_id = $3 group by menu.menu',
 					values: [firstDay,lastDay,event.source.userId],
 				}
 				pgclient.query(query, (err, res) => {
@@ -70,10 +70,10 @@ const botReq = async function (req, res, next) {
 						console.log(err)
 					} else {
 						console.log(res.rows);
-						var text = "今日の集計¥n";
+						var text = "今日の集計/n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
-							text = text + res.rows[i].menu + res.rows[i].count + "回¥n"
+							text = text + res.rows[i].menu + res.rows[i].count + "回/n"
 						}
 						events_processed.push(bot.replyMessage(event.replyToken, {
 							type: "text",
