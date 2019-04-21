@@ -42,6 +42,7 @@ const botReq = async function (req, res, next) {
 				pgclient.query(query, (err, res) => {
 				  	pgclient.end()
 					if (err) {
+						console.log(err)
 					} else {
 						var text = "今月の集計¥n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
@@ -66,6 +67,7 @@ const botReq = async function (req, res, next) {
 				pgclient.query(query, (err, res) => {
 					pgclient.end()
 					if (err) {
+						console.log(err)
 					} else {
 						var text = "今日の集計¥n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
