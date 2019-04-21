@@ -40,7 +40,6 @@ const botReq = async function (req, res, next) {
 				  values: [firstDay,lastDay,event.source.userId],
 				}
 				pgclient.query(query, (err, res) => {
-				  	pgclient.end()
 					if (err) {
 						console.log(err)
 					} else {
@@ -55,6 +54,7 @@ const botReq = async function (req, res, next) {
 							text: text
 						}));
 					}
+					pgclient.end()
 				})
 			} 	else if (event.message.text == "今日"){
 				pgclient.connect()
@@ -66,7 +66,6 @@ const botReq = async function (req, res, next) {
 					values: [firstDay,lastDay,event.source.userId],
 				}
 				pgclient.query(query, (err, res) => {
-					pgclient.end()
 					if (err) {
 						console.log(err)
 					} else {
@@ -81,6 +80,7 @@ const botReq = async function (req, res, next) {
 							text: text
 						}));
 					}
+					pgclient.end()
 				})	  	
 			} else {
                 events_processed.push(bot.replyMessage(event.replyToken, {
