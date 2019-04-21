@@ -33,7 +33,7 @@ const botReq = async function (req, res, next) {
             if (event.message.text == "今月"){
 				pgclient.connect()
 				var today = new Date();
-				var firstDay = new Date(today.getFullYear(),today.getMonth()+1,1);
+				var firstDay = new Date(today.getFullYear(),today.getMonth(),1);
 				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,0);
 				console.log(firstDay)
 				console.log(lastDay)
@@ -61,8 +61,8 @@ const botReq = async function (req, res, next) {
 			} 	else if (event.message.text == "今日"){
 				pgclient.connect()
 				var today = new Date();
-				var firstDay = new Date(today.getFullYear(),today.getMonth()+1,today.getDay(),0,0,0,0);
-				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,today.getDay(),23,59,59,999);
+				var firstDay = new Date(today.getFullYear(),today.getMonth(),today.getDay(),0,0,0,0);
+				var lastDay = new Date(today.getFullYear(),today.getMonth(),today.getDay(),23,59,59,999);
 				console.log(firstDay)
 				console.log(lastDay)
 				const query = {
