@@ -35,7 +35,7 @@ const botReq = async function (req, res, next) {
 				var today = new Date();
 				var firstDay = new Date(today.getFullYear(),today.getMonth(),1);
 				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,0);
-				console.log(toDay)
+				console.log(today)
 				console.log(firstDay)
 				console.log(lastDay)
 				const query = {
@@ -64,7 +64,7 @@ const botReq = async function (req, res, next) {
 				var today = new Date();
 				var firstDay = new Date(today.getFullYear(),today.getMonth(),today.getDay(),0,0,0,0);
 				var lastDay = new Date(today.getFullYear(),today.getMonth(),today.getDay(),23,59,59,999);
-				console.log(toDay)
+				console.log(today)
 				console.log(firstDay)
 				console.log(lastDay)
 				const query = {
