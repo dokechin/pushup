@@ -55,7 +55,7 @@ const botReq = async function (req, res, next) {
 					}
 				})
 			} 	else if (event.message.text == "今日"){
-				that.pgclient.connect()
+				pgclient.connect()
 				var today = new Date();
 				var firstDay = new Date(today.getFullYear(),today.getMonth()+1,today.getDay(),0,0,0,0);
 				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,today.getDay(),23,59,59,999);
