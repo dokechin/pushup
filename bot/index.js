@@ -6,6 +6,7 @@ const line_config = {
     channelSecret: LINE_CHANNEL_SECRET // 環境変数からChannel Secretをセットしています
 };
 var { Client } = require('pg');
+var moment = require('moment-timezone');
 
 // APIコールのためのクライアントインスタンスを作成
 const bot = new line.Client(line_config);
@@ -32,9 +33,9 @@ const botReq = async function (req, res, next) {
             // ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
             if (event.message.text == "今月"){
 				pgclient.connect()
-				var today = new Date();
-				var firstDay = new Date(today.getFullYear(),today.getMonth(),1);
-				var lastDay = new Date(today.getFullYear(),today.getMonth()+1,0);
+				var today = new moment().tz('Asia/Tokyo');
+				var firstDay = new moment({year : today.year(), month: today.month(), day: 1}).tz('Asia/Tokyo').format();
+				var lastDay = new moment({year : today.year(), month: today.month()+ 1, day: 0}).tz('Asia/Tokyo').format();
 				console.log(today)
 				console.log(firstDay)
 				console.log(lastDay)
@@ -61,9 +62,9 @@ const botReq = async function (req, res, next) {
 				})
 			} 	else if (event.message.text == "今日"){
 				pgclient.connect()
-				var today = new Date();
-				var firstDay = new Date(today.getFullYear(),today.getMonth(),today.getDay(),0,0,0,0);
-				var lastDay = new Date(today.getFullYear(),today.getMonth(),today.getDay(),23,59,59,999);
+				var today = new moment().tz('Asia/Tokyo');
+				var firstDay = new moment({year : today.year(), month: today.month(), day: today.day()}).tz('Asia/Tokyo').format();
+				var lastDay = new moment({year : today.year(), month: today.month(), day: today.day(), hour:23, minite:59, second:59, millisecond:999}).tz('Asia/Tokyo').format();
 				console.log(today)
 				console.log(firstDay)
 				console.log(lastDay)
