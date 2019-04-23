@@ -1,4 +1,4 @@
-CREATE SCHEMA pushup;
+CREATE SCHEMA pushup AUTHORIZATION pushup;
 CREATE TABLE pushup.menu (
 	menu varchar(50) NOT NULL,
 	menu_id int4 NOT NULL,
