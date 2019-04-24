@@ -17,6 +17,9 @@ VALUES('背筋', 3);
 INSERT INTO pushup.menu
 (menu, menu_id)
 VALUES('スクワット', 4);
+INSERT INTO pushup.menu
+(menu, menu_id)
+VALUES('クランチ', 5);
 
 
 CREATE TABLE pushup.train (
