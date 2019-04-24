@@ -21,7 +21,7 @@ VALUES('スクワット', 4);
 
 CREATE TABLE pushup.train (
 	execute_date timestamp with time zone NOT NULL,
-	"type" int4 NOT NULL,
+	menu_id int4 NOT NULL,
 	count int4 NOT NULL,
 	speed int4 NOT NULL,
 	user_id varchar(100) NOT NULL

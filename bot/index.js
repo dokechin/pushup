@@ -7,6 +7,13 @@ const line_config = {
 };
 var { Client } = require('pg');
 var moment = require('moment-timezone');
+const QUERY_TYPE = new Map([
+	["今年", "year"],
+	["今月", "month"],
+	["今週", "week"],
+	["今日", "tday"],
+  ]);
+  
 
 // APIコールのためのクライアントインスタンスを作成
 const bot = new line.Client(line_config);
@@ -31,12 +38,10 @@ const botReq = async function (req, res, next) {
 		console.log(event)
         if (event.type == "message" && event.message.type == "text"){
             // ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
-            if (event.message.text == "今月"){
+            if (event.message.text == "今年" || event.message.text == "今月" || event.message.text == "今週" || event.message.text == "今日"){
 				pgclient.connect()
-				var today = new moment().tz('Asia/Tokyo');
-				var firstDay = new moment({year : today.year(), month: today.month(), day: 1}).tz('Asia/Tokyo').format();
-				var lastDay = new moment({year : today.year(), month: today.month()+ 1, day: 0}).tz('Asia/Tokyo').format();
-				console.log(today)
+				var firstDay = new moment().startOf(QUERY_TYPE.get(event.message.text)).tz('Asia/Tokyo').format();
+				var lastDay = new moment().endOf(QUERY_TYPE.get(event.message.text)).tz('Asia/Tokyo').format();
 				console.log(firstDay)
 				console.log(lastDay)
 				const query = {
@@ -48,7 +53,7 @@ const botReq = async function (req, res, next) {
 						console.log(err)
 					} else {
 						console.log(res.rows);
-						var text = "今月の集計";
+						var text = event.message.text + "の集計";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
 							text = text + res.rows[i].menu + res.rows[i].count + "回"
@@ -60,39 +65,10 @@ const botReq = async function (req, res, next) {
 					}
 					pgclient.end()
 				})
-			} 	else if (event.message.text == "今日"){
-				pgclient.connect()
-				var today = new moment().tz('Asia/Tokyo');
-				var firstDay = new moment({year : today.year(), month: today.month(), day: today.day()}).tz('Asia/Tokyo').format();
-				var lastDay = new moment({year : today.year(), month: today.month(), day: today.day(), hour:23, minite:59, second:59, millisecond:999}).tz('Asia/Tokyo').format();
-				console.log(today)
-				console.log(firstDay)
-				console.log(lastDay)
-				const query = {
-					text: 'SELECT menu.menu as menu,SUM(train.count) as count FROM train inner join menu on train.menu_id = menu.menu_id WHERE train.execute_date between $1 and $2 and train.user_id = $3 group by menu.menu',
-					values: [firstDay,lastDay,event.source.userId],
-				}
-				pgclient.query(query, (err, res) => {
-					if (err) {
-						console.log(err)
-					} else {
-						console.log(res.rows);
-						var text = "今日の集計";
-						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
-						for (var i=0;i<res.rows.length;i++){
-							text = text + res.rows[i].menu + res.rows[i].count + "回"
-						}
-						events_processed.push(bot.replyMessage(event.replyToken, {
-							type: "text",
-							text: text
-						}));
-					}
-					pgclient.end()
-				})	  	
 			} else {
                 events_processed.push(bot.replyMessage(event.replyToken, {
                     type: "text",
-                    text: "今月の集計指示「今月」、今日の集計指示「今日」と入力してください。"
+                    text: "集計指示「今年」「今月」「今週」「今日」と入力してください。"
                 }));
 			}
         }

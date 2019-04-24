@@ -13,12 +13,7 @@ const client = new line.Client({
   channelAccessToken: BOT_ACCESS_TOKEN //Messaging APIのアクセストークン
 });
 var { Client } = require('pg');
-const MENU_TYPE = new Map([
-  ["腕立て", 1],
-  ["腹筋", 2],
-  ["背筋", 3],
-  ["スクワット", 4],
-]);
+var {MENU_TYPE} = require('../model/menu.js');
 
 class Directive {
   constructor({namespace, name, payload}) {
