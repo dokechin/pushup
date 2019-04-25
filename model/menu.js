@@ -5,4 +5,4 @@ var MENU_TYPE = new Map([
     ["スクワット", 4],
     ["クランチ", 5],
 ]);
-module.exports = MENU_TYPE;
+module.exports.MENU_TYPE = MENU_TYPE;
