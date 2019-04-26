@@ -37,11 +37,12 @@ const botReq = async function (req, res, next) {
 		// この処理の対象をイベントタイプがメッセージで、かつ、テキストタイプだった場合に限定。
 		console.log(event)
         if (event.type == "message" && event.message.type == "text"){
-            // ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
-            if (event.message.text == "今年" || event.message.text == "今月" || event.message.text == "今週" || event.message.text == "今日"){
+			// ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
+			var text = event.message.text.trim();
+            if (text) == "今年" || text == "今月" || text == "今週" || text == "今日"){
 				pgclient.connect()
-				var firstDay = new moment().startOf(QUERY_TYPE.get(event.message.text)).tz('Asia/Tokyo').format();
-				var lastDay = new moment().endOf(QUERY_TYPE.get(event.message.text)).tz('Asia/Tokyo').format();
+				var firstDay = new moment().startOf(QUERY_TYPE.get(text)).tz('Asia/Tokyo').format();
+				var lastDay = new moment().endOf(QUERY_TYPE.get(text)).tz('Asia/Tokyo').format();
 				console.log(firstDay)
 				console.log(lastDay)
 				const query = {
@@ -53,7 +54,7 @@ const botReq = async function (req, res, next) {
 						console.log(err)
 					} else {
 						console.log(res.rows);
-						var text = event.message.text + "の集計";
+						var text = text + "の集計";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
 							text = text + res.rows[i].menu + res.rows[i].count + "回"
