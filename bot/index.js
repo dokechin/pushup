@@ -39,7 +39,7 @@ const botReq = async function (req, res, next) {
         if (event.type == "message" && event.message.type == "text"){
 			// ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
 			var text = event.message.text.trim();
-            if (text) == "今年" || text == "今月" || text == "今週" || text == "今日"){
+            if (text == "今年" || text == "今月" || text == "今週" || text == "今日"){
 				pgclient.connect()
 				var firstDay = new moment().startOf(QUERY_TYPE.get(text)).tz('Asia/Tokyo').format();
 				var lastDay = new moment().endOf(QUERY_TYPE.get(text)).tz('Asia/Tokyo').format();
