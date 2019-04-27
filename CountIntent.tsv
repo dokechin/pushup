@@ -4,6 +4,7 @@ CountSlot	CLOVA.NUMBER
 SpeedSlot	CLOVA.NUMBER
 
 [INTENT EXPRESSION]
+<TypeSlot>腕立て</TypeSlot>スピード<SpeedSlot>30</SpeedSlot>で<CountSlot>20</CountSlot>回
 <TypeSlot>腕立て</TypeSlot>をスピード<SpeedSlot>30</SpeedSlot>で<CountSlot>10</CountSlot>回 
 <TypeSlot>腕立て</TypeSlot>をスピード<SpeedSlot>30</SpeedSlot>で<CountSlot>10</CountSlot> 
 <TypeSlot>腕立て</TypeSlot>を<SpeedSlot>30</SpeedSlot>で<CountSlot>10</CountSlot>回 
