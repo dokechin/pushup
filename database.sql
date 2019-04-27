@@ -20,7 +20,21 @@ VALUES('スクワット', 4);
 INSERT INTO pushup.menu
 (menu, menu_id)
 VALUES('クランチ', 5);
-
+INSERT INTO pushup.menu
+(menu, menu_id)
+VALUES('バックキック', 6);
+INSERT INTO pushup.menu
+(menu, menu_id)
+VALUES('ヒップリフト', 7);
+INSERT INTO pushup.menu
+(menu, menu_id)
+VALUES('レッグレイズ', 8);
+INSERT INTO pushup.menu
+(menu, menu_id)
+VALUES('カーフレイズ', 9);
+INSERT INTO pushup.menu
+(menu, menu_id)
+VALUES('ニーアップ', 10);
 
 CREATE TABLE pushup.train (
 	execute_date timestamp with time zone NOT NULL,
