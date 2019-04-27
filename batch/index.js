@@ -13,7 +13,7 @@ class Batch {
   constructor () {
     this.pgclient = new Client({
       user: 'pushup',
-      host: '49.212.196.217',
+      host: 'localhost',
       database: 'pushup',
       password: DB_PASSWORD,
       port: 5432
