@@ -38,11 +38,11 @@ const botReq = async function (req, res, next) {
 		console.log(event)
         if (event.type == "message" && event.message.type == "text"){
 			// ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
-			var text = event.message.text.trim();
-            if (text == "今年" || text == "今月" || text == "今週" || text == "今日"){
+			var target = event.message.text.trim();
+            if (target == "今年" || target == "今月" || target == "今週" || target == "今日"){
 				pgclient.connect()
-				var firstDay = new moment().startOf(QUERY_TYPE.get(text)).tz('Asia/Tokyo').format();
-				var lastDay = new moment().endOf(QUERY_TYPE.get(text)).tz('Asia/Tokyo').format();
+				var firstDay = new moment().startOf(QUERY_TYPE.get(target)).tz('Asia/Tokyo').format();
+				var lastDay = new moment().endOf(QUERY_TYPE.get(target)).tz('Asia/Tokyo').format();
 				console.log(firstDay)
 				console.log(lastDay)
 				const query = {
@@ -54,10 +54,10 @@ const botReq = async function (req, res, next) {
 						console.log(err)
 					} else {
 						console.log(res.rows);
-						var text = text + "の集計";
+						var text = target + "の集計結果 \uDBC0\uDCB4\n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
-							text = text + res.rows[i].menu + res.rows[i].count + "回"
+							text = text + res.rows[i].menu + " : " + res.rows[i].count + "回\n"
 						}
 						events_processed.push(bot.replyMessage(event.replyToken, {
 							type: "text",
@@ -69,7 +69,7 @@ const botReq = async function (req, res, next) {
 			} else {
                 events_processed.push(bot.replyMessage(event.replyToken, {
                     type: "text",
-                    text: "集計指示「今年」「今月」「今週」「今日」と入力してください。"
+                    text: "集計指示の期間をの指定をしてください。「今年」「今月」「今週」「今日」と入力してください。"
                 }));
 			}
         }

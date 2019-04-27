@@ -71,7 +71,7 @@ class Batch {
     }
 
     var bMonth = new moment().subtract(1,'months')
-    var text = bMonth.year() + "年" + (bMonth.month() + 1 ) + "月の集計結果\n";
+    var text = bMonth.year() + "年" + (bMonth.month() + 1 ) + "月の集計結果 \uDBC0\uDCB4 \n";
     for(var i=0;i<res2.rows.length;i++){
       text = text + res2.rows[i].menu + " : " +res2.rows[i].count + "回";
       for (var j=0;j<rank[res2.rows[i].menu].length;j++){
