@@ -163,7 +163,8 @@ class CEKRequest {
             return;
           }
         }
-        cekResponse.appendSpeechText( type + count + "回")
+        var typeText = (type == "背筋")? "ハイキン" : type; 
+        cekResponse.appendSpeechText( typeText + count + "回")
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
