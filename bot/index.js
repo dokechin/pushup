@@ -57,7 +57,7 @@ const botReq = async function (req, res, next) {
 						var text = target + "の集計結果 \uDBC0\uDCB4\n";
 						// replyMessage()で返信し、そのプロミスをevents_processedに追加。
 						for (var i=0;i<res.rows.length;i++){
-							text = text + res.rows[i].menu + " : " + res.rows[i].count + "回\n"
+							text = text + res.rows[i].menu + " " + res.rows[i].count + "回\n"
 						}
 						events_processed.push(bot.replyMessage(event.replyToken, {
 							type: "text",
