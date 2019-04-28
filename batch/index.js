@@ -55,7 +55,7 @@ class Batch {
       }
 
       const query2 = {
-        text: `select menu, round(avg(count)) as avg, roung(stddev(count)) as std
+        text: `select menu, round(avg(count)) as avg, round(stddev(count)) as std
             from (
                 select
                     menu.menu,user_id,
