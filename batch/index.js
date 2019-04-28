@@ -22,6 +22,7 @@ class Batch {
   }
   async execute(){
     var rank = {};
+    var sta = {};
     await this.pgclient.connect()
     var firstDay = new moment().subtract(1,'months').startOf('month').tz('Asia/Tokyo').format();
     var lastDay = new moment().subtract(1,'months').endOf('month').tz('Asia/Tokyo').format();
