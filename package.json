@@ -17,6 +17,7 @@
     "express": "^4.16.2",
     "lodash": "^4.17.10",
     "lru-cache": "^5.1.1",
+    "math": "0.0.3",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "morgan": "^1.9.0",
