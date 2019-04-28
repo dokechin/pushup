@@ -111,7 +111,7 @@ class Batch {
 
       text = text + "\n";
 
-      if (i == (res2.rows.length-1) || res2.rows[i].user_id != res2.rows[i+1].user_id){
+      if (i == (res2.rows.length - 1) || res2.rows[i].user_id != res2.rows[i+1].user_id){
         console.log(text)
 /*        client.pushMessage(res2.rows[i].user_id, {
           type: 'text',
