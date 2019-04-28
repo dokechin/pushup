@@ -58,7 +58,7 @@ class Batch {
         text: `select menu, round(avg(count)) as avg, roung(stddev(count)) as std
             from (
                 select
-                    menu.menu,menu.menu_id,user_id,
+                    menu.menu,user_id,
                     sum(count) as count
                 from train
                 inner join menu
