@@ -82,7 +82,7 @@ class Batch {
               where execute_date between $1 and $2 
               group by user_id,menu.menu_id) s
               order by user_id, menu_id`,
-      values: [firstDay,lastDay],
+      values: [firstDay, lastDay],
     }
     var res2 = await this.pgclient.query(query2);
     if (res2.rows.length == 0){
