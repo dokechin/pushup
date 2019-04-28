@@ -98,7 +98,7 @@ class Batch {
       var std = sta[res2.rows[i].menu].std;
       var t = math.round((10 * (res2.rows[i].count - avg) / std) + 50);
 
-      text = text + res2.rows[i].menu + " 参加者平均" + avg + "回\n";
+      text = text + res2.rows[i].menu + " 参加者平均 " + avg + "回\n";
 
       text = text + "あなた " + res2.rows[i].count + "回 ";
       text = text + "偏差値 " + t;
