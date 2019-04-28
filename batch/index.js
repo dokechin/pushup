@@ -99,10 +99,10 @@ class Batch {
       var std = sta[res2.rows[i].menu].std;
       var t = math.round((10 * (res2.rows[i].count - avg) / std) + 50);
 
-      text = text + res2.rows[i].menu + " 参加者平均 " + avg + "回 標準偏差" + std + "\n";
+      text = text + res2.rows[i].menu + " 参加者平均 " + avg + "回 標準偏差" + (std == null)? "-" : std + "\n";
 
       text = text + "あなた " + res2.rows[i].count + "回 ";
-      text = text + "偏差値 " + t;
+      text = text + "偏差値 " + (std == null)? "-" : t;
 
       for (var j=0;j<rank[res2.rows[i].menu].length;j++){
         if (res2.rows[i].user_id == rank[res2.rows[i].menu][j].user_id){
