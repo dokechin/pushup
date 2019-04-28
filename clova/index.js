@@ -215,7 +215,7 @@ class CEKRequest {
       
       case 'Clova.GuideIntent': 
       default: 
-        cekResponse.appendSpeechText("腕立て10回のように指示してください")
+        cekResponse.appendSpeechText("腕立て10回のように指示してください。種目は、腕立て、腹筋、拝金、スクワット、クランチ、バックキック、ヒップリフト、レッグレイズ、カーフレイズ、ランジから選んでください。")
         cekResponse.setMultiturn({state : 'initial'});
         resolve();
       }
