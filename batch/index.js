@@ -55,7 +55,7 @@ class Batch {
       }
 
       const query2 = {
-        text: `select s.menu, round(avg(s.count)) as avg, round(stddev(s.count)) as std
+        text: `select min(s.menu), round(avg(s.count)) as avg, round(stddev(s.count)) as std
             from (
                 select
                     menu.menu,user_id,
@@ -66,7 +66,7 @@ class Batch {
                 where execute_date between $1 and $2 and train.menu_id = $3
                 group by 1,2
             ) s`,
-        values: [firstDay, lastDay],
+        values: [firstDay, lastDay, menu_id],
       }
       var res2 = await this.pgclient.query(query2);
       if (res2 && res2.rows.length > 0){
