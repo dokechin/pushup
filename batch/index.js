@@ -64,7 +64,7 @@ class Batch {
                 inner join menu
                 on train.menu_id = menu.menu_id
                 where execute_date between $1 and $2 and train.menu_id = $3
-                group by 1
+                group by 1,2
             ) s`,
         values: [firstDay, lastDay],
       }
