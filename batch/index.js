@@ -117,7 +117,7 @@ class Batch {
           type: 'text',
           text: text
         });*/
-        text = bMonth.year() + "年" + (bMonth.month() + 1 ) + "月の成績発表\n";
+        text = bMonth.year() + "年" + (bMonth.month() + 1 ) + "月の成績発表 \uDBC0\uDCB4 \n";
       }
     }
     this.pgclient.end()
