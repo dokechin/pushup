@@ -65,7 +65,7 @@ class Batch {
                 where execute_date between $1 and $2 and train.menu_id = $3
                 group by 1
             ) s`,
-        values: [firstDay,lastDay],
+        values: [firstDay, lastDay],
       }
       var res2 = await this.pgclient.query(query2);
       if (res2 && res2.rows.length > 0){
