@@ -66,6 +66,11 @@ const botReq = async function (req, res, next) {
 					}
 					pgclient.end()
 				})
+			} else if (target == "グラフ") {
+                events_processed.push(bot.replyMessage(event.replyToken, {
+                    type: "text",
+                    text: "line://app/1566355119-GKL744J3"
+                }));
 			} else {
                 events_processed.push(bot.replyMessage(event.replyToken, {
                     type: "text",
