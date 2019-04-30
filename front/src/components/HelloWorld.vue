@@ -56,7 +56,7 @@ export default {
             that.message = "トークン採れたし";
             return axios({
               method: "POST",
-              url: 'サーバーのURL',
+              url: 'https://dokechin-pushup.dokechin.com/api',
               data: {},
               headers: {
                 'Content-Type': 'application/json',
