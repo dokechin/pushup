@@ -10,37 +10,39 @@ var {MENU_TYPE} = require('../model/menu.js');
 
 const req = async function (req, response, next) {
 
-//	if (!req.headers.accesstoken) {
-//		response.sendStatus(401);
-//		return;
-//	}
+	if (!req.headers.accesstoken) {
+		response.sendStatus(401);
+		return;
+	}
 
 	try {
-//		const accessToken = req.headers.accesstoken;
-//		const url = `https://api.line.me/oauth2/v2.1/verify?access_token=${accessToken}`;
+		const accessToken = req.headers.accesstoken;
+		const url = `https://api.line.me/oauth2/v2.1/verify?access_token=${accessToken}`;
 	
-//		var req = await axios.get(url);
-//		if (!req.data.scope) {
-//			response.sendStatus(500);
-//			return;
-//		}
-//		req = await axios({
-//			method: "GET",
-//			url: 'https://api.line.me/v2/profile',
-//			headers: {
-//			  'Authorization': `Bearer ${accessToken}`
-//			}
-//		});
-//		var userId = req.data.userID;
-		var userId = "U37809200d2b3302667034905ba05576a";
+		var req = await axios.get(url);
+		if (!req.data.scope) {
+			response.sendStatus(500);
+			return;
+		}
+		req = await axios({
+			method: "GET",
+			url: 'https://api.line.me/v2/profile',
+			headers: {
+			  'Authorization': `Bearer ${accessToken}`
+			}
+		});
+		var userId = req.data.userID;
+//		var userId = "U37809200d2b3302667034905ba05576a";
 		console.log(`userID= ${userId}`)
 		console.log(req.headers.start);
 		console.log(req.headers.end);
 		console.log(req.headers.mode);
 
+//		host: '49.212.196.217',
+
 		var pgclient = new Client({
 			user: 'pushup',
-			host: '49.212.196.217',
+			host: 'localhost',
 			database: 'pushup',
 			password: DB_PASSWORD,
 			port: 5432
