@@ -1,7 +1,7 @@
 <template>
   <div class="example">
-    <datepicker class="form-control" @input="changeDate" format="yyyy-MM-dd" v-model="start"></datepicker>
-    <datepicker name="end" @input="changeDate" format="yyyy-MM-dd" v-model="end"></datepicker>
+    <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="start"></datepicker>
+    <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="end"></datepicker>
     <input @click="updateChart" type="radio" id="day" value="day" v-model="mode">
     <label for="day">Dayly</label>
     <input @click="updateChart" type="radio" id="month" value="month" v-model="mode">
