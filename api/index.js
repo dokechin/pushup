@@ -1,5 +1,5 @@
 const axios = require('axios')
-
+const { DOMAIN, ExtensionId, DEBUG ,BOT_ACCESS_TOKEN, DB_PASSWORD} = require('../config')
 var { Client } = require('pg');
 var moment = require('moment-timezone');
 var {MENU_TYPE} = require('../model/menu.js');
