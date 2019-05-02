@@ -16,8 +16,8 @@ const req = async function (req, response, next) {
 		console.log("accessToken=" + accessToken);
 		const url = `https://api.line.me/oauth2/v2.1/verify?access_token=${accessToken}`;
 	
-		var req = await axios.get(url);
-		if (!req.data.scope) {
+		var req1 = await axios.get(url);
+		if (!req1.data.scope) {
 			console.log("!req.data.scope");
 			response.sendStatus(500);
 			return;
@@ -29,7 +29,7 @@ const req = async function (req, response, next) {
 			  'Authorization': `Bearer ${accessToken}`
 			}
 		});
-		var userId = req2.data.userID;
+		var userId = req2.data.userId;
 		console.log(`userID= ${userId}`)
 		console.log(req.headers.start);
 		console.log(req.headers.end);
