@@ -22,15 +22,14 @@ const req = async function (req, response, next) {
 			response.sendStatus(500);
 			return;
 		}
-		req = await axios({
+		var req2 = await axios({
 			method: "GET",
 			url: 'https://api.line.me/v2/profile',
 			headers: {
 			  'Authorization': `Bearer ${accessToken}`
 			}
 		});
-		var userId = req.data.userID;
-//		var userId = "U37809200d2b3302667034905ba05576a";
+		var userId = req2.data.userID;
 		console.log(`userID= ${userId}`)
 		console.log(req.headers.start);
 		console.log(req.headers.end);
