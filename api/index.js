@@ -11,10 +11,12 @@ const req = async function (req, response, next) {
 
 	try {
 		const accessToken = req.headers.accesstoken;
+		console.log("accessToken=" + accessToken);
 		const url = `https://api.line.me/oauth2/v2.1/verify?access_token=${accessToken}`;
 	
 		var req = await axios.get(url);
 		if (!req.data.scope) {
+			console.log("!req.data.scope");
 			response.sendStatus(500);
 			return;
 		}
