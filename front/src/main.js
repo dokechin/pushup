@@ -4,8 +4,10 @@ import router from './router'
 import store from './store'
 
 import VueApexCharts from 'vue-apexcharts'
+import Datepicker from 'vuejs-datepicker'
 
 Vue.component('apexchart', VueApexCharts)
+Vue.component('datepicker', Datepicker)
 
 Vue.config.productionTip = false
 

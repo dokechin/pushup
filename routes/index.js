@@ -1,7 +1,7 @@
 const express = require('express');
 const clova = require('../clova');
 const bot = require('../bot');
-const bot = require('../api');
+const api = require('../api');
 const router = express.Router();
 
 router.post(`/clova`, clova);
