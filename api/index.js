@@ -1,9 +1,3 @@
-const { BOT_ACCESS_TOKEN, DB_PASSWORD, LINE_CHANNEL_SECRET} = require('../config')
-// パラメータ設定
-const line_config = {
-    channelAccessToken: BOT_ACCESS_TOKEN, // 環境変数からアクセストークンをセットしています
-    channelSecret: LINE_CHANNEL_SECRET // 環境変数からChannel Secretをセットしています
-};
 var { Client } = require('pg');
 var moment = require('moment-timezone');
 var {MENU_TYPE} = require('../model/menu.js');
