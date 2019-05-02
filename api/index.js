@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios')
 
 var { Client } = require('pg');
 var moment = require('moment-timezone');
