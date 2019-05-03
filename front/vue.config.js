@@ -1,3 +1,3 @@
 module.exports = {
-	baseUrl: '/liff/'
+	publicPath: '/liff/'
 }
