@@ -16,7 +16,6 @@
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 export default {
   name: 'BarExample',
   data: function() {
@@ -71,7 +70,6 @@ export default {
                 'accessToken': accessToken
               }
             }).then(response => {
-              console.log(response)
               this.chartOptions = {
                 chart: {
                   stacked: true,
@@ -127,7 +125,6 @@ export default {
           }
         }
       ).then(response => {
-        console.log(response)
         that.chartOptions = {
           chart: {
             stacked: true,
