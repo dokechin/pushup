@@ -118,7 +118,7 @@ export default {
     },
     updateChart() {
       this.loading = true;
-      this.message = "updateChart" + this.mode + this.start + this.end;
+//      this.message = "updateChart" + this.mode + this.start + this.end;
       const accessToken = this.accessToken;
       var that = this;
       axios.post(
