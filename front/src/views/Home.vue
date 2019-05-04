@@ -21,12 +21,12 @@ export default {
   name: 'BarExample',
   data: function() {
     return {
-      chart: {
-        toolbar: {
-          show: false
-        }
-      },
       chartOptions: {
+        chart: {
+          toolbar: {
+            show: false
+          }
+        },
         plotOptions: {
           bar: {
             horizontal: false
@@ -79,6 +79,9 @@ export default {
             }).then(response => {
               this.chartOptions = {
                 chart: {
+                  toolbar: {
+                    show: false
+                  },
                   stacked: true,
                 },
                 plotOptions: {
@@ -139,6 +142,9 @@ export default {
         that.chartOptions = {
           chart: {
             stacked: true,
+            toolbar: {
+              show: false
+            }
           },
           plotOptions: {
             bar: {
