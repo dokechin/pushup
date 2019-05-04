@@ -2,9 +2,9 @@
   <div class="example">
     <div v-if="loading">loading...</div>
     <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="start"></datepicker>
-    <div class="between" style="float:left">~</div>
+    <div style="float:left;">~</div>
     <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="end"></datepicker>
-    <div class="between">
+    <div>
       <input @click="updateChart" type="radio" id="day" value="day" v-model="mode">
       <label for="day">Dayly</label>
       <input @click="updateChart" type="radio" id="month" value="month" v-model="mode">
@@ -166,8 +166,4 @@ function dateToYMD(date) {
 }
 </script>
 <style>
- .vdp-datepicker,.between{
-   float:left
- }
-
 </style>
