@@ -5,9 +5,9 @@
     <div style="float:left;">~</div>
     <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="end"></datepicker>
     <div>
-      <input @click="updateChart" type="radio" id="day" value="day" v-model="mode">
+      <input @change="updateChart" type="radio" id="day" value="day" v-model="mode">
       <label for="day">Dayly</label>
-      <input @click="updateChart" type="radio" id="month" value="month" v-model="mode">
+      <input @change="updateChart" type="radio" id="month" value="month" v-model="mode">
       <label for="month">Monthly</label>
     </div>
     <apexchart width="640" height="500" type="bar" :options="chartOptions" :series="series"></apexchart>
