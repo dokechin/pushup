@@ -74,7 +74,7 @@ const botReq = async function (req, res, next) {
 			} else {
                 events_processed.push(bot.replyMessage(event.replyToken, {
                     type: "text",
-                    text: "集計指示の期間をの指定をしてください。「今年」「今月」「今週」「今日」と入力してください。"
+                    text: "「今年」「今月」「今週」「今日」で対象期間の集計をします。「グラフ」でグラフ表示します。"
                 }));
 			}
         }
