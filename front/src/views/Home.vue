@@ -17,6 +17,7 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 export default {
   name: 'BarExample',
   data: function() {
@@ -91,8 +92,8 @@ export default {
                 series.push({name: key, data: response.data.sum[key]})
               });
               this.series = series;
-              this.start = response.data.start;
-              this.end = response.data.end;
+              this.start = new moment(response.data.start, 'YYYY-MM-DD').toDate();
+              this.end = new moment(response.data.end, 'YYYY-MM-DD').toDate();
               that.message = "完了";
               that.loading = false;
             });
@@ -117,6 +118,7 @@ export default {
     },
     updateChart() {
       this.loading = true;
+      this.message = "updateChart";
       const accessToken = this.accessToken;
       var that = this;
       axios.post(
