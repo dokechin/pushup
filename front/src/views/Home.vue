@@ -11,6 +11,7 @@
       <label for="month">Monthly</label>
     </div>
     <apexchart width="640" height="500" type="bar" :options="chartOptions" :series="series"></apexchart>
+    {{message}}
   </div>
 </template>
 
