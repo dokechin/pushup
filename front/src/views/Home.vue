@@ -41,7 +41,7 @@ export default {
       expires_in: "",
       start: "",
       end: "",
-      loading: true;
+      loading: true
     }
   },
   created() {
@@ -103,6 +103,7 @@ export default {
       },
       err => {
         that.message = "Error\n" + err.code + "\n" + err.message;
+        that.loading = false;
       }
     );
   },
@@ -150,7 +151,7 @@ export default {
         that.series = series;
         that.loading = false;
         that.message = "完了";
-      }).catch(error => {
+      }).catch(err => {
         that.message = "Error\n" + err.code + "\n" + err.message;
         that.loading = false;
       });
