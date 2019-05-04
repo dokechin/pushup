@@ -10,8 +10,7 @@
       <input @change="updateChart" type="radio" value="month" v-model="mode">
       <label for="month">Monthly</label>
     </div>
-    <apexchart width="640" height="500" type="bar" :options="chartOptions" :series="series"></apexchart>
-    {{message}}
+    <apexchart width="640" height="500" type="bar" :chart="chart" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -22,6 +21,11 @@ export default {
   name: 'BarExample',
   data: function() {
     return {
+      chart: {
+        toolbar: {
+          show: false
+        }
+      },
       chartOptions: {
         plotOptions: {
           bar: {
@@ -118,7 +122,6 @@ export default {
     },
     updateChart() {
       this.loading = true;
-//      this.message = "updateChart" + this.mode + this.start + this.end;
       const accessToken = this.accessToken;
       var that = this;
       axios.post(
