@@ -1,16 +1,15 @@
 <template>
   <div class="example">
     <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="start"></datepicker>
+    <div class="between" style="float:left">~</div>
     <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="end"></datepicker>
-    <input @click="updateChart" type="radio" id="day" value="day" v-model="mode">
-    <label for="day">Dayly</label>
-    <input @click="updateChart" type="radio" id="month" value="month" v-model="mode">
-    <label for="month">Monthly</label>
-    <br>
-    <apexchart width="640" height="480" type="bar" :options="chartOptions" :series="series"></apexchart>
-     <div>
-       {{ message }}
+    <div class="between">
+      <input @click="updateChart" type="radio" id="day" value="day" v-model="mode">
+      <label for="day">Dayly</label>
+      <input @click="updateChart" type="radio" id="month" value="month" v-model="mode">
+      <label for="month">Monthly</label>
     </div>
+    <apexchart width="640" height="480" type="bar" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -156,3 +155,9 @@ function dateToYMD(date) {
     return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
 }
 </script>
+<style>
+ .vdp-datepicker,.between{
+   float:left
+ }
+
+</style>
