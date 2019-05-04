@@ -125,9 +125,9 @@ export default {
         {headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'accessToken': accessToken,
-            'start': dateToYMD(this.start),
-            'end': dateToYMD(this.end),
-            'mode': this.mode
+            'start': dateToYMD(that.start),
+            'end': dateToYMD(that.end),
+            'mode': that.mode
           }
         }
       ).then(response => {
