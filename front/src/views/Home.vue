@@ -1,5 +1,6 @@
 <template>
   <div class="example">
+    <div v-if="loading">loading...</div>
     <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="start"></datepicker>
     <div class="between" style="float:left">~</div>
     <datepicker @input="changeDate" format="yyyy-MM-dd" v-model="end"></datepicker>
@@ -39,7 +40,8 @@ export default {
       client_id: "",
       expires_in: "",
       start: "",
-      end: ""
+      end: "",
+      loading: true;
     }
   },
   created() {
@@ -91,10 +93,12 @@ export default {
               this.start = response.data.start;
               this.end = response.data.end;
               that.message = "完了";
+              that.loading = false;
             });
           })
           .catch(err => {
             that.message = "Error\n" + err.code + "\n" + err.message;
+            that.loading = false;
           });
       },
       err => {
@@ -110,6 +114,7 @@ export default {
       this.updateChart();
     },
     updateChart() {
+      this.loading = true;
       const accessToken = this.accessToken;
       var that = this;
       axios.post(
@@ -143,7 +148,11 @@ export default {
           series.push({name: key, data: response.data.sum[key]})
         });
         that.series = series;
+        that.loading = false;
         that.message = "完了";
+      }).catch(error => {
+        that.message = "Error\n" + err.code + "\n" + err.message;
+        that.loading = false;
       });
     }
   }
