@@ -10,7 +10,7 @@
       <input @click="updateChart" type="radio" id="month" value="month" v-model="mode">
       <label for="month">Monthly</label>
     </div>
-    <apexchart width="640" height="480" type="bar" :options="chartOptions" :series="series"></apexchart>
+    <apexchart width="640" height="500" type="bar" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
