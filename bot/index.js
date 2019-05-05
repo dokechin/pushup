@@ -46,7 +46,7 @@ const botReq = async function (req, res, next) {
 				console.log(firstDay)
 				console.log(lastDay)
 				const query = {
-				  text: 'SELECT menu.menu as menu,SUM(train.COUNT) as count FROM TRAIN inner join menu on train.menu_id = menu.menu_id WHERE train.execute_date between $1 and $2 and train.user_id = $3 group by menu.menu',
+				  text: 'SELECT menu.menu,s.count FROM (SELECT menu.menu_id,SUM(train.COUNT) as count FROM TRAIN inner join menu on train.menu_id = menu.menu_id WHERE train.execute_date between $1 and $2 and train.user_id = $3 group by menu.menu_id) s inner join menu on menu.menu_id = s.menu_id ORDER BY menu.menu_id',
 				  values: [firstDay, lastDay, event.source.userId],
 				}
 				pgclient.query(query, (err, res) => {
