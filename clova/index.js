@@ -60,6 +60,7 @@ class CEKRequest {
       type: 'URL',
       value: `${DOMAIN}/drum-japanese2.mp3`
     })
+    cekResponse.appendSpeechText("毎月1日に筋トレ応援団Botから前月の集計結果を送ります。")
     cekResponse.appendSpeechText("腕立て10回のように指示してください")
     cekResponse.setMultiturn({state : 'initial'});
   }
