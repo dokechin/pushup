@@ -137,6 +137,7 @@ class CEKRequest {
             cekResponse.appendSpeechText("腕立て10回のように指示してください")
             cekResponse.setMultiturn({state : 'error'});
             resolve();
+            return;
           }
         } else {
           if (slots && slots.CountSlot && slots.CountSlot.value && slots.TypeSlot && slots.TypeSlot.value) {
