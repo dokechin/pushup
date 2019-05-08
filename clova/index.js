@@ -61,7 +61,7 @@ class CEKRequest {
       value: `${DOMAIN}/drum-japanese2.mp3`
     })
     cekResponse.appendSpeechText("毎月ついたちに筋トレ応援団ボットが前月の集計結果を送ります。")
-    cekResponse.appendSpeechText("腕立てを10回のように指示してください")
+    cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
     cekResponse.setMultiturn({state : 'initial'});
   }
 
@@ -134,7 +134,7 @@ class CEKRequest {
             count = that.session.sessionAttributes.count;
             speed = that.session.sessionAttributes.speed;
           } else {
-            cekResponse.appendSpeechText("腕立てを10回のように指示してください")
+            cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
             cekResponse.setMultiturn({state : 'error'});
             resolve();
             return;
@@ -145,7 +145,7 @@ class CEKRequest {
             count = slots.CountSlot.value
           }
           else {
-            cekResponse.appendSpeechText("腕立てを10回のように指示してください")
+            cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
             cekResponse.setMultiturn({state : 'error'});
             resolve();
             return;
@@ -217,7 +217,7 @@ class CEKRequest {
       
       case 'Clova.GuideIntent': 
       default: 
-        cekResponse.appendSpeechText("腕立て10回のように指示してください。種目は、腕立て、腹筋、拝金、スクワット、クランチ、バックキック、ヒップリフト、レッグレイズ、カーフレイズ、ランジから選んでください。")
+        cekResponse.appendSpeechText("プッシュアップを10回のように指示してください。種目は、プッシュアップ、シットアップ、バックエクステンション、スクワット、クランチ、バックキック、ヒップリフト、レッグレイズ、カーフレイズ、ランジから選んでください。")
         cekResponse.setMultiturn({state : 'initial'});
         resolve();
       }
