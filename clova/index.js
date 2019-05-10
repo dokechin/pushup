@@ -14,7 +14,7 @@ const client = new line.Client({
 });
 var { Client } = require('pg');
 var {MENU_TYPE} = require('../model/menu.js');
-const monthPattern = /^\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}/$/g;
+const monthPattern = /^\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}$/g;
 
 class Directive {
   constructor({namespace, name, payload}) {
