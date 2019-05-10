@@ -135,7 +135,7 @@ class CEKRequest {
         if (slots && slots.DateSlot && slots.DateSlot.value ) {
           cekResponse.appendSpeechText(slots.DateSlot.value　+ "集計中です!")
           var interval = slots.DateSlot.value.match(monthPattern);
-          if (interval){
+          if (!interval){
             cekResponse.appendSpeechText("集計月を指定してください。")
             cekResponse.setMultiturn({state : 'error'});
             resolve();
