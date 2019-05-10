@@ -14,6 +14,7 @@ const client = new line.Client({
 });
 var { Client } = require('pg');
 var {MENU_TYPE} = require('../model/menu.js');
+const monthPattern = /^\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}/$/g;
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -97,6 +98,10 @@ class CEKRequest {
       })
     });
   }
+  async makeResult(start){
+    return start;
+  }
+
   async makeAudio(count,speed){
     console.log("triming")
 
@@ -126,6 +131,38 @@ class CEKRequest {
       var type = ''
   
       switch (intent) {
+      case 'ResultIntent':
+        if (slots && slots.DateSlot && slots.DateSlot.value ) {
+          cekResponse.appendSpeechText(slots.DateSlot.value　+ "集計中です!")
+          var interval = slots.DateSlot.value.match(monthPattern);
+          if (interval){
+            cekResponse.appendSpeechText("集計月を指定してください。")
+            cekResponse.setMultiturn({state : 'error'});
+            resolve();
+            return;    
+          } else {
+            var end = new moment(interval[0].substr(0,10), 'YYYY-MM-DD').endOf("month").format('YYYY-MM-DD');
+            if (end != interval[0].substr(10,10)) {
+              cekResponse.appendSpeechText("集計月を指定してください。")
+              cekResponse.setMultiturn({state : 'error'});
+              resolve();
+              return; 
+            }
+          }
+          that.makeResult(interval[0]).then(function (text){
+            cekResponse.appendSpeechText(text)
+            resolve();
+          });
+          return;  
+        } else {
+          cekResponse.appendSpeechText("集計月を指定してください。")
+          cekResponse.setMultiturn({state : 'error'});
+          resolve();
+          return;  
+        }
+        cekResponse.appendSpeechText("集計中です")
+        resolve();
+        return;
       case 'CountIntent':
       case 'RepeatIntent':
         if (intent == "RepeatIntent"){
