@@ -137,14 +137,14 @@ class CEKRequest {
           cekResponse.appendSpeechText(slots.DateSlot.value　+ "集計中です!")
           var interval = slots.DateSlot.value.match(monthPattern);
           if (!interval){
-            cekResponse.appendSpeechText("集計月を指定してください。")
+            cekResponse.appendSpeechText("集計月を正しく指定してくださいね。")
             cekResponse.setMultiturn({state : 'error'});
             resolve();
             return;    
           } else {
             var end = new moment(interval[0].substr(0,10), 'YYYY-MM-DD').endOf("month").format('YYYY-MM-DD');
             if (end != interval[0].substr(10,10)) {
-              cekResponse.appendSpeechText("集計月を指定してください。")
+              cekResponse.appendSpeechText("集計は月単位で指定してください。")
               cekResponse.setMultiturn({state : 'error'});
               resolve();
               return; 
@@ -156,7 +156,7 @@ class CEKRequest {
           });
           return;  
         } else {
-          cekResponse.appendSpeechText("集計月を指定してください。")
+          cekResponse.appendSpeechText("集計月が指定されていません。")
           cekResponse.setMultiturn({state : 'error'});
           resolve();
           return;  
