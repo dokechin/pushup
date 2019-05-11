@@ -101,6 +101,8 @@ class CEKRequest {
   }
   async makeResult(timeinterval){
 
+    this.pgclient.connect()
+
     var firstDay = new moment(timeinterval.substr(0,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
     var lastDay = new moment(timeinterval.substr(11,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
 
@@ -122,7 +124,7 @@ class CEKRequest {
     }
     var result = "";
     for (var i=0;i<res2.rows.length;i++) {
-      result + menu + ":" + count + "回";
+      result = menu + ":" + count + "回";
     }
     return result;
   }
@@ -185,6 +187,7 @@ class CEKRequest {
               });
             }
             resolve();
+            return;
           });
           return;  
         } else {
