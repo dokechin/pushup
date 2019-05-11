@@ -117,6 +117,7 @@ class CEKRequest {
               order by menu_id`,
       values: [firstDay, lastDay, this.session.user.userId],
     }
+    console.log(query2);
     var res2 = await this.pgclient.query(query2);
     if (res2.rows.length == 0){
       this.pgclient.end()
