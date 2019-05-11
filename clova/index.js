@@ -143,7 +143,7 @@ class CEKRequest {
             return;    
           } else {
             var end = new moment(interval[0].substr(0,10), 'YYYY-MM-DD').endOf("month").format('YYYY-MM-DD');
-            if (end != interval[0].substr(10,10)) {
+            if (end != interval[0].substr(11,10)) {
               cekResponse.appendSpeechText("集計は月単位で指定してください。")
               cekResponse.setMultiturn({state : 'error'});
               resolve();
