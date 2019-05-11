@@ -136,11 +136,11 @@ class CEKRequest {
       return null;
     }
 
-    var ourResult = firstDay.substr(0,4) + "年" + firstDay.substr(5,2) + "月の集計結果\n";
+    var ourResult = firstDay.substr(0,4) + "年" + firstDay.substr(5,2) + "月の集計結果 \uDBC0\uDCB4\n";
     if (res1.rows.length > 0) {
-      ourResult = "全参加者平均\n"
+      ourResult = ourResult + "全参加者平均\n"
       for (var i=0;i<res1.rows.length;i++) {
-        ourResult = ourResult + res1.rows[i].menu + ":" + res1.rows[i].avegage + "回\n";
+        ourResult = ourResult + res1.rows[i].menu + ":" + res1.rows[i].average + "回\n";
         sta[res1.rows[i].menu] = {ave: res1.rows[i].average, std : res1.rows[i].std};
       }
     }
@@ -152,7 +152,7 @@ class CEKRequest {
         var ave = sta[res2.rows[i].menu].ave;
         var std = sta[res2.rows[i].menu].std;
         var t = (std == null)? "-" : math.round((10 * (res2.rows[i].count - ave) / std) + 50);
-        yourResult = yourResult + "偏差値" + t;
+        yourResult = yourResult + " 偏差値" + t;
       }
       yourResult = yourResult + "\n";
     }
