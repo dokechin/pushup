@@ -16,6 +16,7 @@ const client = new line.Client({
 var { Client } = require('pg');
 var {MENU_TYPE} = require('../model/menu.js');
 const monthPattern = /^\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}$/g;
+var math = require('math');
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -101,10 +102,20 @@ class CEKRequest {
   }
   async makeResult(timeinterval){
 
+    var sta = {};
+
     this.pgclient.connect()
 
     var firstDay = new moment(timeinterval.substr(0,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
     var lastDay = new moment(timeinterval.substr(11,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
+
+    const query1 = {
+      text: `select * from summary
+              where execute_date = $1 
+              order by menu_id`,
+      values: [firstDay],
+    }
+    var res1 = await this.pgclient.query(query1);
 
     const query2 = {
       text: `select * from (
@@ -117,17 +128,34 @@ class CEKRequest {
               order by menu_id`,
       values: [firstDay, lastDay, this.session.user.userId],
     }
-    console.log(query2);
+
     var res2 = await this.pgclient.query(query2);
     if (res2.rows.length == 0){
       this.pgclient.end()
       return null;
     }
-    var result = "";
-    for (var i=0;i<res2.rows.length;i++) {
-      result = menu + ":" + count + "回";
+
+    var ourResult = "";
+    if (res1.rows.length > 0) {
+      ourResult = "全参加者平均\n"
+      for (var i=0;i<res1.rows.length;i++) {
+        ourResult = res1.rows[i].menu + ":" + res1.rows[i].avg + "回\n";
+        sta[res1.rows[i].menu] = {ave: res1.rows[i].average, std : res1.rows[i].std};
+      }
     }
-    return result;
+
+    var yourResult = "あなたの結果\n";
+    for (var i=0;i<res2.rows.length;i++) {
+      yourResult = res2.rows[i].menu + ":" + res2.rows[i].count + "回";
+      if (sta[res2.rows[i].menu]) {
+        var ave = sta[res2.rows[i].menu].ave;
+        var std = sta[res2.rows[i].menu].std;
+        var t = math.round((10 * (res2.rows[i].count - avg) / std) + 50);
+        yourResult = "偏差値" + t;
+      }
+      yourResult = yourResult + "\n";
+    }
+    return ourResult + "\n" + yourResult;
   }
 
   async makeAudio(count,speed){
