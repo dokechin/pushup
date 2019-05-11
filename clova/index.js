@@ -9,6 +9,7 @@ const shortid = require('shortid');
 const mp3Duration = require('mp3-duration');
 const speeds = [60, 80, 100, 120];
 const line = require('@line/bot-sdk');
+const moment = require('moment-timezone');
 const client = new line.Client({
   channelAccessToken: BOT_ACCESS_TOKEN //Messaging APIのアクセストークン
 });
