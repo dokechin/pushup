@@ -160,7 +160,6 @@ class CEKRequest {
   }
 
   async makeAudio(count,speed){
-    console.log("triming")
 
     var command1 = SoxCommand();
     var id = shortid.generate();
@@ -209,7 +208,7 @@ class CEKRequest {
             if (text == null) {
               cekResponse.appendSpeechText("集計結果がありませんでした。")
             } else {
-              cekResponse.appendSpeechText("集計結果をLINEで通知します。")
+              cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
               client.pushMessage(that.session.user.userId, {
                 type: 'text',
                 text: text
@@ -290,18 +289,11 @@ class CEKRequest {
             value: `${DOMAIN}/gong-played2.mp3`
           })    
           cekResponse.setMultiturn({state : 'end', type: type, count: count, speed: speed});
-//        const userId = that.session.user.userId;
-//        client.pushMessage(userId, {
-//          type: 'text',
-//          text: type + 'をスピード' + speed + "で" + count + '回やりました。'
-//        });
           that.pgclient.connect()
           const query = {
             text: 'INSERT INTO train(execute_date, menu_id, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
             values: [MENU_TYPE.get(type), count, speed, that.session.user.userId],
           }
-          console.log(type)
-          console.log(query)
           
           that.pgclient.query(query, (err, res) => {
             that.pgclient.end()
