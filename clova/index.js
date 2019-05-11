@@ -113,7 +113,7 @@ class CEKRequest {
               inner join menu
               on summary.menu_id = menu.menu_id
               where execute_date = $1 
-              order by menu_id`,
+              order by menu.menu_id`,
       values: [firstDay],
     }
     var res1 = await this.pgclient.query(query1);
