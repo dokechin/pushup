@@ -11,7 +11,7 @@ const QUERY_TYPE = new Map([
 	["今年", "year"],
 	["今月", "month"],
 	["今週", "week"],
-	["今日", "tday"],
+	["今日", "today"],
   ]);
   
 
