@@ -134,7 +134,7 @@ class CEKRequest {
       return null;
     }
 
-    var ourResult = "";
+    var ourResult = firstDay.substr(0,4) + ”年” + firstDay.substr(5,2) + ”月の集計結果\n”;
     if (res1.rows.length > 0) {
       ourResult = "全参加者平均\n"
       for (var i=0;i<res1.rows.length;i++) {
