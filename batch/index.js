@@ -46,6 +46,7 @@ class Batch {
           text: `insert into summary values($1,$2,$3,$4)`,
           values: [firstDay, menu_id, res2.rows[0].avg, res2.rows[0].std],
         }
+        console.log(query2);
         var res2 = await this.pgclient.query(query2);
         }
     }
