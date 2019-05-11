@@ -150,7 +150,7 @@ class CEKRequest {
       if (sta[res2.rows[i].menu]) {
         var ave = sta[res2.rows[i].menu].ave;
         var std = sta[res2.rows[i].menu].std;
-        var t = math.round((10 * (res2.rows[i].count - avg) / std) + 50);
+        var t = (std == null)? "-" : math.round((10 * (res2.rows[i].count - avg) / std) + 50);
         yourResult = "偏差値" + t;
       }
       yourResult = yourResult + "\n";

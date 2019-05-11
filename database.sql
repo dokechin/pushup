@@ -49,7 +49,7 @@ CREATE TABLE pushup.summary (
 	execute_date timestamp with time zone NOT NULL,
 	menu_id int4 NOT NULL,
 	average int4 NOT NULL,
-	std int4 NOT NULL
+	std int4
 );
-
+CREATE INDEX summary_execute_date_idx ON pushup.summary(execute_date);
 
