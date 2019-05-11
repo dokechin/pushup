@@ -99,8 +99,32 @@ class CEKRequest {
       })
     });
   }
-  async makeResult(start){
-    return start;
+  async makeResult(timeinterval){
+
+    var firstDay = new moment(timeinterval.substr(0,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
+    var lastDay = new moment(timeinterval.substr(11,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
+
+    const query2 = {
+      text: `select * from (
+              select menu.menu_id,menu.menu,sum(count) count
+              from train
+              inner join menu
+              on menu.menu_id = train.menu_id
+              where execute_date between $1 and $2 and user_id = $3 
+              group by user_id,menu.menu_id) s
+              order by menu_id`,
+      values: [firstDay, lastDay, this.session.user.userId],
+    }
+    var res2 = await this.pgclient.query(query2);
+    if (res2.rows.length == 0){
+      this.pgclient.end()
+      return null;
+    }
+    var result = "";
+    for (var i=0;i<res2.rows.length;i++) {
+      result + menu + ":" + count + "回";
+    }
+    return result;
   }
 
   async makeAudio(count,speed){
@@ -151,7 +175,15 @@ class CEKRequest {
             }
           }
           that.makeResult(interval[0]).then(function (text){
-            cekResponse.appendSpeechText(text)
+            if (text == null) {
+              cekResponse.appendSpeechText("集計結果がありませんでした。")
+            } else {
+              cekResponse.appendSpeechText("集計結果をLINEで通知します。")
+              client.pushMessage(that.session.user.userId, {
+                type: 'text',
+                text: text
+              });
+            }
             resolve();
           });
           return;  
@@ -161,9 +193,6 @@ class CEKRequest {
           resolve();
           return;  
         }
-        cekResponse.appendSpeechText("集計中です")
-        resolve();
-        return;
       case 'CountIntent':
       case 'RepeatIntent':
         if (intent == "RepeatIntent"){
@@ -203,8 +232,7 @@ class CEKRequest {
             return;
           }
         }
-        var typeText = (type == "背筋")? "ハイキン" : type; 
-        cekResponse.appendSpeechText( typeText + count + "回")
+        cekResponse.appendSpeechText( type + count + "回")
         cekResponse.appendSpeechText({
           lang: 'ja',
           type: 'URL',
