@@ -63,7 +63,6 @@ class CEKRequest {
       type: 'URL',
       value: `${DOMAIN}/drum-japanese2.mp3`
     })
-    cekResponse.appendSpeechText("毎月ついたちに筋トレ応援団ボットが前月の集計結果を送ります。")
     cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
     cekResponse.setMultiturn({state : 'initial'});
   }
@@ -139,19 +138,19 @@ class CEKRequest {
     if (res1.rows.length > 0) {
       ourResult = "全参加者平均\n"
       for (var i=0;i<res1.rows.length;i++) {
-        ourResult = res1.rows[i].menu + ":" + res1.rows[i].avg + "回\n";
+        ourResult = ourResult + res1.rows[i].menu + ":" + res1.rows[i].avg + "回\n";
         sta[res1.rows[i].menu] = {ave: res1.rows[i].average, std : res1.rows[i].std};
       }
     }
 
     var yourResult = "あなたの結果\n";
     for (var i=0;i<res2.rows.length;i++) {
-      yourResult = res2.rows[i].menu + ":" + res2.rows[i].count + "回";
+      yourResult = yourResult + res2.rows[i].menu + ":" + res2.rows[i].count + "回";
       if (sta[res2.rows[i].menu]) {
         var ave = sta[res2.rows[i].menu].ave;
         var std = sta[res2.rows[i].menu].std;
         var t = (std == null)? "-" : math.round((10 * (res2.rows[i].count - avg) / std) + 50);
-        yourResult = "偏差値" + t;
+        yourResult = yourResult + "偏差値" + t;
       }
       yourResult = yourResult + "\n";
     }
@@ -189,7 +188,6 @@ class CEKRequest {
       switch (intent) {
       case 'ResultIntent':
         if (slots && slots.DateSlot && slots.DateSlot.value ) {
-          cekResponse.appendSpeechText(slots.DateSlot.value　+ "集計中です!")
           var interval = slots.DateSlot.value.match(monthPattern);
           if (!interval){
             cekResponse.appendSpeechText("集計月を正しく指定してくださいね。")
