@@ -109,7 +109,9 @@ class CEKRequest {
     var lastDay = new moment(timeinterval.substr(11,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
 
     const query1 = {
-      text: `select * from summary
+      text: `select menu, average, std from summary
+              inner join menu
+              on summary.menu_id = menu.menu_id
               where execute_date = $1 
               order by menu_id`,
       values: [firstDay],
@@ -138,7 +140,7 @@ class CEKRequest {
     if (res1.rows.length > 0) {
       ourResult = "全参加者平均\n"
       for (var i=0;i<res1.rows.length;i++) {
-        ourResult = ourResult + res1.rows[i].menu + ":" + res1.rows[i].avg + "回\n";
+        ourResult = ourResult + res1.rows[i].menu + ":" + res1.rows[i].avegage + "回\n";
         sta[res1.rows[i].menu] = {ave: res1.rows[i].average, std : res1.rows[i].std};
       }
     }
