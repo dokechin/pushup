@@ -197,6 +197,7 @@ class CEKRequest {
         } else {
           if(res.rows.length > 0){
             speed = res.rows[0].speed;
+            console.log("default speed:" + speed)
           }
           var type = ''  
           switch (intent) {
