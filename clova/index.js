@@ -297,7 +297,6 @@ class CEKRequest {
                 value: `${DOMAIN}/gong-played2.mp3`
               })    
               cekResponse.setMultiturn({state : 'end', type: type, count: count, speed: speed});
-              that.pgclient.connect()
               const query = {
                 text: 'INSERT INTO train(execute_date, menu_id, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
                 values: [MENU_TYPE.get(type), count, speed, that.session.user.userId],
