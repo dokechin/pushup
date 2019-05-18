@@ -56,3 +56,7 @@ CREATE TABLE pushup.summary (
 );
 CREATE INDEX summary_execute_date_idx ON pushup.summary(execute_date);
 
+CREATE TABLE pushup.setting (
+	user_id varchar(100) NOT NULL primary key,
+	speed int4 NOT NULL
+);
