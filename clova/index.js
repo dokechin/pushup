@@ -184,130 +184,146 @@ class CEKRequest {
       const slots = that.request.intent.slots
       var count = 10
       var speed = 80
-      var type = ''
-  
-      switch (intent) {
-      case 'ResultIntent':
-        if (slots && slots.DateSlot && slots.DateSlot.value ) {
-          var interval = slots.DateSlot.value.match(monthPattern);
-          if (!interval){
-            cekResponse.appendSpeechText("集計月を正しく指定してくださいね。")
-            cekResponse.setMultiturn({state : 'error'});
-            resolve();
-            return;    
-          } else {
-            var end = new moment(interval[0].substr(0,10), 'YYYY-MM-DD').endOf("month").format('YYYY-MM-DD');
-            if (end != interval[0].substr(11,10)) {
-              cekResponse.appendSpeechText("集計は月単位で指定してください。")
+
+      that.pgclient.connect()
+      const query = {
+        text: 'select speed from setting where user_id = $1',
+        values: [that.session.user.userId],
+      }
+      that.pgclient.query(query, (err, res) => {
+        that.pgclient.end()
+        if (err) {
+          console.log(err)
+          reject();
+        } else {
+          if(res.rows.length > 0){
+            speed = res.rows[0].speed;
+          }
+          var type = ''  
+          switch (intent) {
+          case 'ResultIntent':
+            if (slots && slots.DateSlot && slots.DateSlot.value ) {
+              var interval = slots.DateSlot.value.match(monthPattern);
+              if (!interval){
+                cekResponse.appendSpeechText("集計月を正しく指定してくださいね。")
+                cekResponse.setMultiturn({state : 'error'});
+                resolve();
+                return;    
+              } else {
+                var end = new moment(interval[0].substr(0,10), 'YYYY-MM-DD').endOf("month").format('YYYY-MM-DD');
+                if (end != interval[0].substr(11,10)) {
+                  cekResponse.appendSpeechText("集計は月単位で指定してください。")
+                  cekResponse.setMultiturn({state : 'error'});
+                  resolve();
+                  return; 
+                }
+              }
+              that.makeResult(interval[0]).then(function (text){
+                if (text == null) {
+                  cekResponse.appendSpeechText("集計結果がありませんでした。")
+                } else {
+                  cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
+                  client.pushMessage(that.session.user.userId, {
+                    type: 'text',
+                    text: text
+                  });
+                }
+                resolve();
+                return;
+              });
+              return;  
+            } else {
+              cekResponse.appendSpeechText("集計月が指定されていません。")
               cekResponse.setMultiturn({state : 'error'});
               resolve();
-              return; 
+              return;  
             }
-          }
-          that.makeResult(interval[0]).then(function (text){
-            if (text == null) {
-              cekResponse.appendSpeechText("集計結果がありませんでした。")
+          case 'CountIntent':
+          case 'RepeatIntent':
+            if (intent == "RepeatIntent"){
+              if (that.session.sessionAttributes.state == 'end'){
+                type = that.session.sessionAttributes.type;
+                count = that.session.sessionAttributes.count;
+                speed = that.session.sessionAttributes.speed;
+              } else {
+                cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
+                cekResponse.setMultiturn({state : 'error'});
+                resolve();
+                return;
+              }
             } else {
-              cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
-              client.pushMessage(that.session.user.userId, {
-                type: 'text',
-                text: text
-              });
-            }
-            resolve();
-            return;
-          });
-          return;  
-        } else {
-          cekResponse.appendSpeechText("集計月が指定されていません。")
-          cekResponse.setMultiturn({state : 'error'});
-          resolve();
-          return;  
-        }
-      case 'CountIntent':
-      case 'RepeatIntent':
-        if (intent == "RepeatIntent"){
-          if (that.session.sessionAttributes.state == 'end'){
-            type = that.session.sessionAttributes.type;
-            count = that.session.sessionAttributes.count;
-            speed = that.session.sessionAttributes.speed;
-          } else {
-            cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
-            cekResponse.setMultiturn({state : 'error'});
-            resolve();
-            return;
-          }
-        } else {
-          if (slots && slots.CountSlot && slots.CountSlot.value && slots.TypeSlot && slots.TypeSlot.value) {
-            type = slots.TypeSlot.value
-            count = slots.CountSlot.value
-          }
-          else {
-            cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
-            cekResponse.setMultiturn({state : 'error'});
-            resolve();
-            return;
-          }
-          if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
-            speed = slots.SpeedSlot.value * 2;
-            if (!speeds.includes(speed)){
-              speed = 80;
-            }
-          }
-          console.log("speed:" + speed)
-
-          if (count < 1 || count > 100) {
-            cekResponse.setSimpleSpeechText("カウント数は1から100の間で指定してください。") 
-            cekResponse.setMultiturn({state : 'error'});
-            resolve();
-            return;
-          }
-        }
-        cekResponse.appendSpeechText( type + count + "回")
-        cekResponse.appendSpeechText({
-          lang: 'ja',
-          type: 'URL',
-          value: `${DOMAIN}/info-girl1_info-girl1-youi1.mp3`
-        })      
-
-        that.makeAudio(count, speed).then(function (id){
-          cekResponse.appendSpeechText({
-            lang: 'ja',
-            type: 'URL',
-            value: `${DOMAIN}/generated_${id}.wav`
-          })    
+              if (slots && slots.CountSlot && slots.CountSlot.value && slots.TypeSlot && slots.TypeSlot.value) {
+                type = slots.TypeSlot.value
+                count = slots.CountSlot.value
+              }
+              else {
+                cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
+                cekResponse.setMultiturn({state : 'error'});
+                resolve();
+                return;
+              }
+              if (slots && slots.SpeedSlot && slots.SpeedSlot.value ) {
+                speed = slots.SpeedSlot.value * 2;
+                if (!speeds.includes(speed)){
+                  speed = 80;
+                }
+              }
+              console.log("speed:" + speed)
     
-          cekResponse.appendSpeechText({
-            lang: 'ja',
-            type: 'URL',
-            value: `${DOMAIN}/gong-played2.mp3`
-          })    
-          cekResponse.setMultiturn({state : 'end', type: type, count: count, speed: speed});
-          that.pgclient.connect()
-          const query = {
-            text: 'INSERT INTO train(execute_date, menu_id, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
-            values: [MENU_TYPE.get(type), count, speed, that.session.user.userId],
-          }
-          
-          that.pgclient.query(query, (err, res) => {
-            that.pgclient.end()
-            if (err) {
-              console.log(err)
-              reject();
-            } else {
-              resolve();
+              if (count < 1 || count > 100) {
+                cekResponse.setSimpleSpeechText("カウント数は1から100の間で指定してください。") 
+                cekResponse.setMultiturn({state : 'error'});
+                resolve();
+                return;
+              }
             }
-          })
-          return;
-        })
-        break;
-      
-      case 'Clova.GuideIntent': 
-      default: 
-        cekResponse.appendSpeechText("プッシュアップを10回のように指示してください。種目は、プッシュアップ、シットアップ、バックエクステンション、スクワット、クランチ、バックキック、ヒップリフト、レッグレイズ、カーフレイズ、ランジ、チンニングから選んでください。")
-        cekResponse.setMultiturn({state : 'initial'});
-        resolve();
-      }
+            cekResponse.appendSpeechText( type + count + "回")
+            cekResponse.appendSpeechText({
+              lang: 'ja',
+              type: 'URL',
+              value: `${DOMAIN}/info-girl1_info-girl1-youi1.mp3`
+            })      
+    
+            that.makeAudio(count, speed).then(function (id){
+              cekResponse.appendSpeechText({
+                lang: 'ja',
+                type: 'URL',
+                value: `${DOMAIN}/generated_${id}.wav`
+              })    
+        
+              cekResponse.appendSpeechText({
+                lang: 'ja',
+                type: 'URL',
+                value: `${DOMAIN}/gong-played2.mp3`
+              })    
+              cekResponse.setMultiturn({state : 'end', type: type, count: count, speed: speed});
+              that.pgclient.connect()
+              const query = {
+                text: 'INSERT INTO train(execute_date, menu_id, count, speed, user_id) VALUES(current_timestamp, $1, $2, $3, $4)',
+                values: [MENU_TYPE.get(type), count, speed, that.session.user.userId],
+              }
+              
+              that.pgclient.query(query, (err, res) => {
+                that.pgclient.end()
+                if (err) {
+                  console.log(err)
+                  reject();
+                } else {
+                  resolve();
+                }
+              })
+              return;
+            })
+            break;
+          
+          case 'Clova.GuideIntent': 
+          default: 
+            cekResponse.appendSpeechText("プッシュアップを10回のように指示してください。種目は、プッシュアップ、シットアップ、バックエクステンション、スクワット、クランチ、バックキック、ヒップリフト、レッグレイズ、カーフレイズ、ランジ、チンニングから選んでください。")
+            cekResponse.setMultiturn({state : 'initial'});
+            resolve();
+          }
+        }
+      })
   
     });
 
