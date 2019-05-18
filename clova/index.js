@@ -191,7 +191,6 @@ class CEKRequest {
         values: [that.session.user.userId],
       }
       that.pgclient.query(query, (err, res) => {
-        that.pgclient.end()
         if (err) {
           console.log(err)
           reject();
