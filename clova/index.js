@@ -165,7 +165,7 @@ class CEKRequest {
     var id = shortid.generate();
     var x = Math.floor((Math.random() * 7) + 1);
     command1.input(`${PUBLIC}/count_` + speed + '_' + x + '.wav');
-    command1.output(`${PUBLIC}/generated_${id}.wav`).trim(0,count * (120 / speed));
+    command1.output(`${PUBLIC}/generated_${id}.wav`).trim(0,count * (120 / speed) + 1);
   
     var promise1 = this.makePromise(command1);
     command1.run();
@@ -268,12 +268,6 @@ class CEKRequest {
           lang: 'ja',
           type: 'URL',
           value: `${DOMAIN}/info-girl1_info-girl1-youi1.mp3`
-        })      
-
-        cekResponse.appendSpeechText({
-          lang: 'ja',
-          type: 'URL',
-          value: `${DOMAIN}/gong-played1.mp3`
         })      
 
         that.makeAudio(count, speed).then(function (id){

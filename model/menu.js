@@ -9,5 +9,6 @@ var MENU_TYPE = new Map([
     ["レッグレイズ", 8],
     ["カーフレイズ", 9],
     ["ランジ", 10],
+    ["チンニング", 11],
 ]);
 module.exports.MENU_TYPE = MENU_TYPE;

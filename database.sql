@@ -35,6 +35,9 @@ VALUES('カーフレイズ', 9);
 INSERT INTO pushup.menu
 (menu, menu_id)
 VALUES('ランジ', 10);
+INSERT INTO pushup.menu
+(menu, menu_id)
+VALUES('チンニング', 11);
 
 CREATE TABLE pushup.train (
 	execute_date timestamp with time zone NOT NULL,
