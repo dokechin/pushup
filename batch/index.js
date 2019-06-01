@@ -40,7 +40,7 @@ class Batch {
         values: [firstDay, lastDay, menu_id],
       }
       var res2 = await this.pgclient.query(query2);
-      if (res2 && res2.rows.length > 0){
+      if (res2 && res2.rows.length > 0 && res2.rows[0].avg != null){
 
         const query2 = {
           text: `insert into summary values($1,$2,$3,$4)`,
