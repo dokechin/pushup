@@ -222,11 +222,18 @@ class CEKRequest {
                 if (text == null) {
                   cekResponse.appendSpeechText("集計結果がありませんでした。")
                 } else {
-                  cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
                   client.pushMessage(that.session.user.userId, {
                     type: 'text',
                     text: text
-                  });
+                  }).then(() => {
+                    cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
+                    // 成功したとき。CEKにレスポンスを返したり。
+                  })
+                  .catch((err) => {
+                    if(err.originalError.response.data.message === 'The property, \'to\', in the request body is invalid (line: -, column: -)'){
+                      cekResponse.appendSpeechText("スキルストアで、筋トレ応援団Botを友達登録してください。")
+                    }// エラーしたとき
+                  });​
                 }
                 resolve();
                 return;
