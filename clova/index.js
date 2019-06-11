@@ -221,6 +221,7 @@ class CEKRequest {
               that.makeResult(interval[0]).then(function (text){
                 if (text == null) {
                   cekResponse.appendSpeechText("集計結果がありませんでした。")
+                  cekResponse.setMultiturn({state : 'error'});
                   resolve();
               } else {
                   client.pushMessage(that.session.user.userId, {
@@ -228,11 +229,16 @@ class CEKRequest {
                     text: text
                   }).then(() => {
                     cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
+                    cekResponse.setMultiturn({state : 'error'});
                     resolve();
                   })
                   .catch((err) => {
                     if(err.originalError.response.data.message === 'The property, \'to\', in the request body is invalid (line: -, column: -)'){
-                      cekResponse.appendSpeechText(err.originalError.response.data.message + "スキルストアで、筋トレ応援団Botを友達登録してください。")
+                      cekResponse.appendSpeechText("集計結果を送信できませんでした。スキルストアで、筋トレ応援団Botを友達登録してください。")
+                      cekResponse.setMultiturn({state : 'error'});
+                    } else {
+                      cekResponse.appendSpeechText("集計結果を送信できませんでした。")
+                      cekResponse.setMultiturn({state : 'error'});
                     }
                     resolve();
                   });
