@@ -230,7 +230,7 @@ class CEKRequest {
                   })
                   .catch((err) => {
                     if(err.originalError.response.data.message === 'The property, \'to\', in the request body is invalid (line: -, column: -)'){
-                      cekResponse.appendSpeechText("スキルストアで、筋トレ応援団Botを友達登録してください。")
+                      cekResponse.appendSpeechText(err.originalError.response.data.message + "スキルストアで、筋トレ応援団Botを友達登録してください。")
                     }
                   });
                 }
