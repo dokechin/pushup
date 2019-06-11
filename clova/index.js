@@ -221,23 +221,26 @@ class CEKRequest {
               that.makeResult(interval[0]).then(function (text){
                 if (text == null) {
                   cekResponse.appendSpeechText("集計結果がありませんでした。")
-                } else {
+                  resolve();
+                  return;
+              } else {
                   client.pushMessage(that.session.user.userId, {
                     type: 'text',
                     text: text
                   }).then(() => {
                     cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
+                    resolve();
+                    return;
                   })
                   .catch((err) => {
                     if(err.originalError.response.data.message === 'The property, \'to\', in the request body is invalid (line: -, column: -)'){
                       cekResponse.appendSpeechText(err.originalError.response.data.message + "スキルストアで、筋トレ応援団Botを友達登録してください。")
                     }
+                    resolve();
+                    return;
                   });
                 }
-                resolve();
-                return;
               });
-              return;  
             } else {
               cekResponse.appendSpeechText("集計月が指定されていません。")
               cekResponse.setMultiturn({state : 'error'});
