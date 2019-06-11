@@ -222,7 +222,6 @@ class CEKRequest {
                 if (text == null) {
                   cekResponse.appendSpeechText("集計結果がありませんでした。")
                   resolve();
-                  return;
               } else {
                   client.pushMessage(that.session.user.userId, {
                     type: 'text',
@@ -230,17 +229,16 @@ class CEKRequest {
                   }).then(() => {
                     cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
                     resolve();
-                    return;
                   })
                   .catch((err) => {
                     if(err.originalError.response.data.message === 'The property, \'to\', in the request body is invalid (line: -, column: -)'){
                       cekResponse.appendSpeechText(err.originalError.response.data.message + "スキルストアで、筋トレ応援団Botを友達登録してください。")
                     }
                     resolve();
-                    return;
                   });
                 }
               });
+              return;
             } else {
               cekResponse.appendSpeechText("集計月が指定されていません。")
               cekResponse.setMultiturn({state : 'error'});
