@@ -82,6 +82,7 @@ class CEKRequest {
         cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
         cekResponse.setMultiturn({state : 'initial'});
         resolve();
+        return;
       })
       .catch( err => {
         // 友だち追加していない場合
@@ -97,6 +98,7 @@ class CEKRequest {
           cekResponse.setMultiturn({state : 'initial'});  
           resolve();
         }
+        return;
       });
     });
   }
