@@ -259,19 +259,31 @@ class CEKRequest {
                   cekResponse.appendSpeechText("集計結果がありませんでした。")
                   cekResponse.setMultiturn({state : 'error'});
                   resolve();
-              } else {
-                  client.pushMessage(that.session.user.userId, {
-                    type: 'text',
-                    text: text
-                  }).then(() => {
+                } else {
+                  var options = {
+                    method: 'GET',
+                    uri: 'https://api.line.me/v2/bot/profile/' + that.session.user.userId,
+                    headers: {
+                      "Authorization": "Bearer {" + BOT_ACCESS_TOKEN + "}"
+                    }
+                  };
+                          
+                  rp(options)
+                  .then( async (data) => {
                     cekResponse.appendSpeechText("集計結果をLINEで通知しました。")
                     cekResponse.setMultiturn({state : 'error'});
+                    client.pushMessage(that.session.user.userId, {
+                      type: 'text',
+                      text: text
+                    })
                     resolve();
+                    return;
                   })
-                  .catch((err) => {
+                  .catch( err => {
                     cekResponse.appendSpeechText("集計結果をLINE送信できませんでした。スキルストアで、筋トレ応援団Botを友達登録してください。")
                     cekResponse.setMultiturn({state : 'error'});
                     resolve();
+                    return;
                   });
                 }
               });
