@@ -17,6 +17,8 @@ var { Client } = require('pg');
 var {MENU_TYPE} = require('../model/menu.js');
 const monthPattern = /^\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}$/g;
 var math = require('math');
+const rp = require('request-promise');
+
 
 class Directive {
   constructor({namespace, name, payload}) {
@@ -58,13 +60,44 @@ class CEKRequest {
 
   launchRequest(cekResponse) {
     console.log('launchRequest')
-    cekResponse.appendSpeechText({
-      lang: 'ja',
-      type: 'URL',
-      value: `${DOMAIN}/drum-japanese2.mp3`
-    })
-    cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
-    cekResponse.setMultiturn({state : 'initial'});
+    return new Promise( function(resolve, reject){
+
+      cekResponse.appendSpeechText({
+        lang: 'ja',
+        type: 'URL',
+        value: `${DOMAIN}/drum-japanese2.mp3`
+      })
+
+      var options = {
+        method: 'GET',
+        uri: 'https://api.line.me/v2/bot/profile/' + this.session.user.userId,
+        headers: {
+          "Authorization": "Bearer {" + BOT_ACCESS_TOKEN + "}"
+        }
+      };
+
+      rp(options)
+      .then( async (data) => {
+        cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
+        cekResponse.setMultiturn({state : 'initial'});
+        resolve();
+      })
+      .catch( err => {
+        // 友だち追加していない場合
+        if(err.response.body === '{"message":"Not found"}'){
+          cekResponse.appendSpeechText("筋トレ応援団Botを友だち登録すると集計機能が使えるようになります。")
+          cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
+          cekResponse.setMultiturn({state : 'initial'});
+          resolve();
+        }
+        // そのほかのエラー
+        else{
+          cekResponse.appendSpeechText("プッシュアップを10回のように指示してください")
+          cekResponse.setMultiturn({state : 'initial'});  
+          resolve();
+        }
+      });
+    });
   }
 
   makePromise(command) {
@@ -233,13 +266,8 @@ class CEKRequest {
                     resolve();
                   })
                   .catch((err) => {
-                    if(err.originalError.response.data.message === 'The property, \'to\', in the request body is invalid (line: -, column: -)'){
-                      cekResponse.appendSpeechText("集計結果を送信できませんでした。スキルストアで、筋トレ応援団Botを友達登録してください。")
-                      cekResponse.setMultiturn({state : 'error'});
-                    } else {
-                      cekResponse.appendSpeechText("集計結果を送信できませんでした。")
-                      cekResponse.setMultiturn({state : 'error'});
-                    }
+                    cekResponse.appendSpeechText("集計結果をLINE送信できませんでした。スキルストアで、筋トレ応援団Botを友達登録してください。")
+                    cekResponse.setMultiturn({state : 'error'});
                     resolve();
                   });
                 }
