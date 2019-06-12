@@ -139,7 +139,7 @@ class CEKRequest {
 
     var sta = {};
 
-    this.pgclient.connect()
+//    this.pgclient.connect()
 
     var firstDay = new moment(timeinterval.substr(0,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
     var lastDay = new moment(timeinterval.substr(11,10),'YYYY-MM-DD').tz('Asia/Tokyo').format();
