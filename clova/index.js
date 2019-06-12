@@ -60,6 +60,7 @@ class CEKRequest {
 
   launchRequest(cekResponse) {
     console.log('launchRequest')
+    that = this;
     return new Promise( function(resolve, reject){
 
       cekResponse.appendSpeechText({
@@ -70,7 +71,7 @@ class CEKRequest {
 
       var options = {
         method: 'GET',
-        uri: 'https://api.line.me/v2/bot/profile/' + this.session.user.userId,
+        uri: 'https://api.line.me/v2/bot/profile/' + that.session.user.userId,
         headers: {
           "Authorization": "Bearer {" + BOT_ACCESS_TOKEN + "}"
         }
