@@ -60,7 +60,7 @@ class CEKRequest {
 
   launchRequest(cekResponse) {
     console.log('launchRequest')
-    that = this;
+    var that = this;
     return new Promise( function(resolve, reject){
 
       cekResponse.appendSpeechText({
