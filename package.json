@@ -16,7 +16,7 @@
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.21",
     "lru-cache": "^5.1.1",
     "math": "0.0.3",
     "moment": "^2.24.0",
