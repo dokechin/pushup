@@ -15,7 +15,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "lodash": "^4.17.10",
     "lru-cache": "^5.1.1",
     "math": "0.0.3",
